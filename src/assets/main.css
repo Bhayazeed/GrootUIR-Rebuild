@@ -1,0 +1,125 @@
+@import './base.css';
+
+#app {
+  max-width: max-content;
+  margin: 0,0;
+  padding: 0;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Navigation Styling */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--color-background-soft);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+nav ul li a {
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: var(--color-accent);
+  color: var(--color-background);
+}
+
+/* Login Button */
+nav .login {
+  background: var(--color-primary);
+  color: var(--color-background);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+nav .login:hover {
+  background: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+/* Page Layout */
+#app .hero {
+  text-align: center;
+  color: var(--color-heading);
+}
+
+#app .hero h1 {
+  font-size: 3rem;
+  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#app .hero p {
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  nav ul {
+    gap: 2rem;
+  }
+}
+
+/* Anchor & Green Class Styling */
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
