@@ -80,7 +80,7 @@
   /* General Layout */
   .timeline-container {
     position: relative;
-    background-color: #fefefe;
+    background-color: #ffffff;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
@@ -172,6 +172,12 @@
   .content-image img {
     width: 100%;
     border-radius: 10px;
+    width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensures image fills container without distortion */
+  border-radius: 20px;
+  border: 4px solid #f9a61d; /* Add border */
+  max-height: 300px; /* Set a maximum height for larger screens */
   }
   
   .content-date {
@@ -182,7 +188,7 @@
   }
   
   .content-description {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     padding: 15px;
     border-radius: 10px;
     text-align: left;

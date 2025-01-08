@@ -66,9 +66,7 @@
 }
 
 /* Universal Reset */
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
@@ -120,7 +118,6 @@ button, .button {
   color: var(--color-secondary);
   border: none;
   padding: 10px 20px;
-  border-radius: 30px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;

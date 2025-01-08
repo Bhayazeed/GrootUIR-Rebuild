@@ -8,7 +8,7 @@
     <div class="image-description-section">
       <div class="image-description-item">
         <div class="description">
-          <h3 class="headline">Robotic Automation Research</h3>
+          <!-- <h3 class="headline">Robotic Automation Research</h3> -->
           <p class="description-text">
             Dedicated to advancing the field of robotics and automation, this research focuses on innovative solutions for real-world challenges.
           </p>
@@ -23,7 +23,7 @@
     <div class="image-description-section">
       <div class="image-description-item">
         <div class="description">
-          <h3 class="headline">Community Outreach Programs</h3>
+          <!-- <h3 class="headline">Community Outreach Programs</h3> -->
           <p class="description-text">
             Engaging the community by sharing knowledge about cutting-edge technologies and inspiring the next generation of innovators.
           </p>
@@ -91,6 +91,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
 
   .image-content {
@@ -98,15 +99,20 @@
     max-width: 400px;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensures image fills container without distortion */
+    border-radius: 20px;
+    border: 4px solid #f9a61d; /* Add border */
+    max-height: 300px; /* Set a maximum height for larger screens */
   }
 
   .description {
     flex: 2;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
   }
 
   .headline {
@@ -118,8 +124,9 @@
 
   .description-text {
     font-size: 1rem;
-    color: #555;
+    color: #33308e;
     line-height: 1.6;
+    text-align: left;
   }
 
   /* === Footer Section === */
