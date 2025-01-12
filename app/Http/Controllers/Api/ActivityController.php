@@ -16,9 +16,28 @@ use Illuminate\Support\Facades\Storage;
 
 class ActivityController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $activities = Activity::latest()->paginate(5);
+        $query = Activity::query();
+
+        if ($request->has('category')) {
+            $query->where('category', $request->category);
+        }
+        if ($request->has('created_by')) {
+            $query->where('created_by', $request->created_by);
+        }
+
+        $sortField = $request->get('sort_by', 'created_at');
+        $sortDirection = $request->get('sort_direction', 'desc');
+        $allowedSortFields = ['title', 'category', 'created_at'];
+        
+        if (in_array($sortField, $allowedSortFields)) {
+            $query->orderBy($sortField, $sortDirection);
+        }
+
+        $perPage = $request->get('per_page', 15);
+        $activities = $query->paginate($perPage);
+
         return new ActivityResource(true, 'List of activities', $activities);
     }
 
@@ -52,7 +71,7 @@ class ActivityController extends Controller
 
     public function show($id_activity)
     {
-        $activity = Activity::findOrFail($id_activity);
+        $activity = Activity::find($id_activity);
         return new ActivityResource(true, 'Detail Activity', $activity);
     }
 
@@ -70,7 +89,7 @@ class ActivityController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $activity = Activity::findOrFail($id_activity);
+        $activity = Activity::find($id_activity);
 
         if ($request->hasFile('image')) {
             
@@ -100,7 +119,7 @@ class ActivityController extends Controller
 
     public function destroy($id_activity)
     {
-        $activity = Activity::findOrFail($id_activity);
+        $activity = Activity::find($id_activity);
 
         Storage::delete('public/activities/' . basename($activity->image));
 

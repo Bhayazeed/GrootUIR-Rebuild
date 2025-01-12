@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('image');
             $table->text('description');
             $table->text('tags');
-            $table->text('created_by');
             $table->timestamps();
         });
     }

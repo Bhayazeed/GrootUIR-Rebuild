@@ -10,12 +10,32 @@ use App\Http\Resources\ProjectResource;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\Storage;
+
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::latest()->paginate(5);
-        return new ProjectResource(true, 'List of Project', $projects);
+        $query = Project::query();
+
+        if ($request->has('tags')) {
+            $query->where('tags', $request->tags);
+        }
+
+        $sortField = $request->get('sort_by', 'created_at');
+        $sortDirection = $request->get('sort_direction', 'desc');
+        $allowedSortFields = ['title', 'tags', 'created_at'];
+        
+        if (in_array($sortField, $allowedSortFields)) {
+            $query->orderBy($sortField, $sortDirection);
+        }
+
+        $perPage = $request->get('per_page', 15);
+        $projects = $query->paginate($perPage);
+
+        return new ProjectResource(true, 'List of projects', $projects);
     }
 
     public function store(Request $request)
