@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Activity;
-
 use App\Http\Resources\ActivityResource;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Support\Facades\Storage;
 
 class ActivityController extends Controller
 {
+    // Public methods (no authentication required)
     public function index(Request $request)
     {
         $query = Activity::query();
@@ -41,6 +37,21 @@ class ActivityController extends Controller
         return new ActivityResource(true, 'List of activities', $activities);
     }
 
+    public function show($id_activity)
+    {
+        $activity = Activity::find($id_activity);
+
+        if (!$activity) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Activity not found',
+            ], 404);
+        }
+
+        return new ActivityResource(true, 'Detail Activity', $activity);
+    }
+
+    // Protected methods (require authentication)
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -51,7 +62,7 @@ class ActivityController extends Controller
             'created_by' => 'required',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
@@ -69,14 +80,17 @@ class ActivityController extends Controller
         return new ActivityResource(true, 'Activity Created', $activity);
     }
 
-    public function show($id_activity)
-    {
-        $activity = Activity::find($id_activity);
-        return new ActivityResource(true, 'Detail Activity', $activity);
-    }
-
     public function update(Request $request, $id_activity)
     {
+        $activity = Activity::find($id_activity);
+
+        if (!$activity) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Activity not found',
+            ], 404);
+        }
+
         $validator = Validator::make($request->all(), [
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'title' => 'required',
@@ -85,18 +99,15 @@ class ActivityController extends Controller
             'created_by' => 'required',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        $activity = Activity::find($id_activity);
-
         if ($request->hasFile('image')) {
-            
             $image = $request->file('image');
             $image->storeAs('public/activities', $image->hashName());
 
-            Storage:delete('public/activities/' . basename($activity->image));
+            Storage::delete('public/activities/' . basename($activity->image));
 
             $activity->update([
                 'image' => $image->hashName(),
@@ -105,7 +116,7 @@ class ActivityController extends Controller
                 'category' => $request->category,
                 'created_by' => $request->created_by,
             ]);
-        }else{
+        } else {
             $activity->update([
                 'title' => $request->title,
                 'description' => $request->description,
@@ -121,8 +132,14 @@ class ActivityController extends Controller
     {
         $activity = Activity::find($id_activity);
 
-        Storage::delete('public/activities/' . basename($activity->image));
+        if (!$activity) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Activity not found',
+            ], 404);
+        }
 
+        Storage::delete('public/activities/' . basename($activity->image));
         $activity->delete();
 
         return new ActivityResource(true, 'Activity Deleted', null);
