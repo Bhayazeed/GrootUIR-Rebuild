@@ -61,5 +61,5 @@
 Use Postman or any API testing tool to test the endpoints. Make sure to include the `Authorization` token and `x-api-key` in the headers for secure
 endpoints.
 
-**Postman Documentation:** TO BE ADDED
+**Postman Documentation:** https://documenter.getpostman.com/view/40883579/2sAYQWKZGB
    
