@@ -3,7 +3,6 @@
     <Navbar />
     <main>
       <router-view />
-
     </main>
     <Footer />
   </div>
@@ -12,6 +11,7 @@
 <script setup>
 import Navbar from './assets/accessory/navbar.vue';
 import Footer from './assets/accessory/footer.vue';
+
 </script>
 
 <style>

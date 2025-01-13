@@ -1,18 +1,10 @@
 <template>
   <div class="landing-page">
-    <!-- Banner Section -->
     <Banner />
-    
-    <!-- Content Container for Side-by-Side Layout -->
     <div class="content-container">
       <Research />
-      <!-- Left Side: Vision and Mission Section -->
-      
-      <!-- Right Side: Research Section -->
       <VisiMisi />
     </div>
-    
-    <!-- News Section -->
     <News />
   </div>
 </template>

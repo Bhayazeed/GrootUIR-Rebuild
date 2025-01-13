@@ -5,14 +5,24 @@
   <div class="page-container">
     <div class="container">
       <div class="left">
-        <maincard />
+        <maincard
+          :image="image1"
+          day="27"
+          month="Feb"
+          title="GROOT IT UIR GOES TO SUMBAR 2020"
+          description="This card is highly reusable and flexible."
+          buttonText="Read More"
+          customClass="custom-card-class"
+          :showDateBadge="true"
+          :custom-action="navigateToPage"
+        />
       </div>
       <div class="right">
         <div class="searchbar-container">
           <searchbar />
         </div>
         <div class="recentpost-container">
-          <recentpost />
+          <recentpost :titles="postTitles" :images="postImages" />
         </div>
       </div>
     </div>
@@ -23,9 +33,36 @@
 import maincard from '../../assets/accessory/maincard.vue';
 import recentpost from '../../assets/accessory/recentpost.vue'; // Import the recentpost component
 import searchbar from '../../assets/accessory/searchbar.vue'; // Import the searchbar component
+import image1 from '../../assets/image/galery1.jpg';
+import image2 from '../../assets/image/galery2.jpg';
+import image3 from '../../assets/image/galery3.jpg';
+import image4 from '../../assets/image/galery4.jpg';
+
+
+const postTitles = [
+  "GROOT IT UIR GOES TO SUMBAR",
+  "AI CAN CHANGE THE FUTURE FOR THE BETTER OF US",
+  "THE WORLD IS BETTER FUTURE AND IS GOOD!",
+  "NBA PLAYER YAZIID IS GOING TO SACRAMENTO KINGS!",
+];
+
+const postImages = [
+  image1,
+  image2,
+  image3,
+  image4
+];
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+// Define the custom action to navigate to another page
+function navigateToPage() {
+  router.push({ name: "Test" }); // Replace 'TargetPage' with your route name or path
+}
 </script>
 
 <style scoped>
+
   .activity-title {
     font-size: 28px;
     font-weight: bold;

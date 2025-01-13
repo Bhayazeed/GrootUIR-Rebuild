@@ -1,0 +1,166 @@
+<template>
+  <div class="profile-wrapper">
+    <div class="profile-container">
+      <!-- Divider Line for Public Relations Section -->
+      <div class="divider">
+        <span class="divider-text">Public Relation</span>
+      </div>
+
+      <!-- Coordinator Profile -->
+      <div class="coordinator">
+        <profilcard
+          :image="aku"
+          name="Ikhsan"
+          title="Software Engineer"
+          position="Coordinator"
+          :socialLinks="{
+            instagram: { url: 'https://instagram.com/johndoe', icon: 'fab fa-instagram' },
+            linkedin: { url: 'https://linkedin.com/in/johndoe', icon: 'fab fa-linkedin' },
+          }"
+        />
+      </div>
+
+      <!-- Staff Profiles -->
+      <div class="staff">
+        <profilcard
+          :image="aku"
+          name="Rizki"
+          title="Software Engineer"
+          position="Staff"
+          :socialLinks="{
+            instagram: { url: 'https://instagram.com/johndoe', icon: 'fab fa-instagram' },
+            linkedin: { url: 'https://linkedin.com/in/johndoe', icon: 'fab fa-linkedin' },
+          }"
+        />
+        <profilcard
+          :image="aku"
+          name="Silpa"
+          title="Software Engineer"
+          position="Staff"
+          :socialLinks="{
+            instagram: { url: 'https://instagram.com/johndoe', icon: 'fab fa-instagram' },
+            linkedin: { url: 'https://linkedin.com/in/johndoe', icon: 'fab fa-linkedin' },
+          }"
+        />
+        <profilcard
+          :image="aku"
+          name="Nurul"
+          title="Software Engineer"
+          position="Staff"
+          :socialLinks="{
+            instagram: { url: 'https://instagram.com/johndoe', icon: 'fab fa-instagram' },
+            linkedin: { url: 'https://linkedin.com/in/johndoe', icon: 'fab fa-linkedin' },
+          }"
+        />
+      </div>
+    </div>
+    <!-- Footer Section -->
+    <div class="footer-logo-container">
+      <div class="footer-logo-section">
+        <img src="../../components/icons/icon.png" alt="Community Logo" class="footer-logo" />
+      </div>
+      <div class="motivational-words-section">
+        <p class="motivational-words">"As we look to the future, GROOT remains committed to growth and excellence. We are more than a community; we are a family united by a shared mission to inspire, innovate, and lead in the fields of robotics, networking, and automation. With unwavering determination, we will continue to rise, proving that our best is yet to come."</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import profilcard from '@/assets/accessory/profilcard.vue';
+import aku from '@/assets/image/profil.jpg';
+</script>
+
+<style scoped>
+/* Wrapper for the entire profile section */
+.profile-wrapper {
+  padding: 20px; /* Adds padding around the section */
+}
+
+/* Container for profiles, centers and spaces elements */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  gap: 35px; /* Space between profiles and sections */
+}
+
+/* Divider styling with text overlay */
+/* Divider styling with text overlay */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Aligns content to the left */
+  width: 100%;
+  height: 20px;
+  background-color: #33308e;
+  margin: 10px 0;
+  position: relative;
+  padding: 0 0; /* Adds padding on the left */
+}
+
+.divider-text {
+  font-size: 40px;
+  font-weight: bold;
+  color: #f9a61d;
+  background-color: #fff;
+  padding: 0 30px;
+  position: relative;
+  letter-spacing: 5px; /* Adds spacing between characters */
+  text-align: left; /* Aligns text to the left */
+}
+
+/* Profile card styling */
+.profilcard {
+  width: 250px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Center the coordinator profile */
+.coordinator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Staff profiles displayed in a horizontal row */
+.staff {
+  display: flex;
+  gap: 35px; /* Space between staff cards */
+  justify-content: center;
+  flex-wrap: wrap; /* Ensure cards wrap if space is limited */
+}
+/* === Footer Section === */
+.footer-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  .footer-logo-section {
+    margin-bottom: 10px;
+  }
+
+  .footer-logo {
+    width: 150px;
+    height: auto;
+  }
+
+  .motivational-words-section {
+    text-align: center;
+  }
+
+  .motivational-words {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: normal;
+  }
+</style>

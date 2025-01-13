@@ -1,16 +1,20 @@
 <template>
   <nav class="navbar">
     <div class="navbar-left">
+      <router-link to="/">
       <img src="../../components/icons/logo.png" alt="GROOT logo" class="logo" />
+    </router-link>
     </div>
       <ul class="navbar-links">
-        <li><router-link to="/Home">Home</router-link></li>
+        <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/about">About</router-link></li>
         <li><router-link to="/activity">Activity</router-link></li>
-        <li><router-link to="/Projects">Projects</router-link></li>
-        <li><router-link to="/Teams">Teams</router-link></li>
+        <li><router-link to="/projects">Projects</router-link></li>
+        <li><router-link to="/teams">Teams</router-link></li>
       </ul>
+      <router-link to="/login">
     <button class="login-button">Login</button>
+  </router-link>
     </nav>
 </template>
 

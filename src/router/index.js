@@ -3,12 +3,15 @@ import LandingPage from '../views/LandingPage.vue';
 import About from '../views/AboutPage.vue';
 import Activity from '../views/ActivityPage.vue';
 import Projects from '../views/ProjectPage.vue';
+import Teams from '../views/TeamsPage.vue';
+import Login from '../views/Loginpage.vue';
+import Test from '../views/TestingPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'LandingPage',
       component: LandingPage,
     },
@@ -26,6 +29,21 @@ const router = createRouter({
       path: '/projects',
       name: 'Projects',
       component: Projects,
+    },
+    {
+      path: '/teams',
+      name: 'Teams',
+      component: Teams,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: Test,
     },
   ],
 })

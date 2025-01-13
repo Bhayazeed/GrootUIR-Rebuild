@@ -14,6 +14,9 @@
           </div>
         </div>
       </div>
+      <div class="bot-buttom">
+      <ReadMore buttonText="Click here" arrow="↓" :customAction="navigateToPage"/>
+    </div>
     </div>
   </div>
 </template>
@@ -23,6 +26,16 @@ import image1 from '../../assets/image/galery1.jpg'
 import image2 from '../../assets/image/galery2.jpg'
 import image3 from '../../assets/image/galery3.jpg'
 import image4 from '../../assets/image/galery4.jpg'
+import ReadMore from '../../assets/accessory/btnread.vue';
+
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+// Define the custom action to navigate to another page
+function navigateToPage() {
+  router.push({ name: "Activity" }); // Replace 'TargetPage' with your route name or path
+}
 
 const images = [
 image1,
@@ -122,6 +135,9 @@ margin-bottom: 10px;
 font-size: 16px;
 color: #33308e;
 line-height: 1.5;
+}
+.bot-buttom{
+  padding-top: 40px;
 }
 
 /* Responsive Design */

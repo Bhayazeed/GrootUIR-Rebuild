@@ -13,7 +13,6 @@
         </p>
       </div>
     </div>
-
     <div class="photo-description-item">
       <div class="photo">
         <img src="../../assets/image/pic3.jpg" alt="Photo 2" class="photo-image" />
@@ -26,9 +25,11 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+import house from "../../assets/accessory/house.svg"
 
 </script>
 

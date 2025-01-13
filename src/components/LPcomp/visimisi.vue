@@ -14,7 +14,12 @@
               <p class="vision-text">
                 To provide education and training in robotics and automation, foster innovation through cutting-edge research, participate in competitions, empower the academic community, and collaborate with partners to deliver impactful advancements that benefit society and the economy.
               </p>
+              <div class="kotakdivgambar">
+                <img src="../../assets/accessory/house.svg" alt="" class="kotak-timpa">
+              </div>
             </div>
+            
+            
   
             <!-- Mission Box -->
             <div class="mission-box">
@@ -24,6 +29,9 @@
                 <li>Drive innovation and excellence in science and technology.</li>
                 <li>Contribute to societal progress through robotics and automation advancements.</li>
               </ul>
+              <div class="kotakdivgambar">
+                <img src="../../assets/accessory/Hand.svg" alt="" class="kotak-timpa-tangan">
+              </div>
             </div>
           </div>
   
@@ -88,7 +96,12 @@
     margin: 0 auto;
     text-align: center;
   }
-  
+  .kotak-timpa-tangan{
+    position: absolute;
+    right: -3vw;
+    top: 75%;
+    height: 80px;
+  }
   .section-title {
     font-size: 28px;
     font-weight: bold;
@@ -127,6 +140,7 @@
     border-radius: 20px;
     border: 4px solid #f9a61d; /* Updated border color */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
   }
   
   .vision-title {
@@ -145,6 +159,7 @@
   /* Mission Box (Left) */
   .mission-box {
     background-color: #33308e;
+    position: relative;
     padding: 20px;
     border-radius: 20px;
     border: 4px solid #f9a61d; /* Updated border color */
@@ -157,7 +172,13 @@
     color: #f9a61d; /* Yellow color for titles */
     margin-bottom: 10px;
   }
-  
+  .kotak-timpa {
+    position: absolute;
+    left: -3vw;
+    top: 75%;
+    height: 80px;
+  }
+
   .mission-list {
     list-style-type: disc;
     margin: 0 auto;

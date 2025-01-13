@@ -5,6 +5,7 @@
       <h2 class="timeline-deskripsi">A Quick Timeline of Our Journey as a Community</h2>
     </div>
     <div class="timeline-container">
+      
       <!-- Vertical Line -->
       <div class="timeline-line"></div>
   
@@ -113,7 +114,10 @@
     padding: 10px;
     line-height: 1.2;
   }
-  
+  .bulat-keren{
+    position: absolute;
+    left: 50%;
+  }
   /* Vertical Line Inside Container */
   .timeline-line {
     position: absolute;
