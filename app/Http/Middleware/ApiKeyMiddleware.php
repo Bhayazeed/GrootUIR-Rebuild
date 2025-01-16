@@ -24,10 +24,7 @@ class ApiKeyMiddleware
 
         if (!$apiKey || $apiKey !== $configApiKey) {
             \Log::error('Invalid API key');
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid API key'
-            ], 401);
+            return response()->view('welcome', [], 404);
         }
 
         return $next($request);
