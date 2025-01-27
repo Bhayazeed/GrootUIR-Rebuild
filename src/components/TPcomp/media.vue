@@ -71,7 +71,6 @@ import aku from '@/assets/image/profil.jpg';
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
   margin: 0 auto;
   gap: 35px; /* Space between profiles and sections */
@@ -101,21 +100,21 @@ import aku from '@/assets/image/profil.jpg';
   text-align: left; /* Aligns text to the left */
 }
 
-/* Uniform styling for profile cards */
+/* Profile card styling */
 .profilcard {
-  width: 250px; /* Fixed width for all cards */
-  height: 350px; /* Fixed height for all cards */
+  width: 250px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 20px; /* Space below each card */
+  margin-bottom: 20px;
 }
 
 /* Center the coordinator profile */
 .coordinator {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px; /* Add spacing below coordinator */
+  margin-bottom: 20px;
 }
 
 /* Staff profiles displayed in a horizontal row */
@@ -124,5 +123,98 @@ import aku from '@/assets/image/profil.jpg';
   gap: 35px; /* Space between staff cards */
   justify-content: center;
   flex-wrap: wrap; /* Ensure cards wrap if space is limited */
+}
+
+/* === Footer Section === */
+.footer-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.footer-logo-section {
+  margin-bottom: 10px;
+}
+
+.footer-logo {
+  width: 150px;
+  height: auto;
+}
+
+.motivational-words-section {
+  text-align: center;
+}
+
+.motivational-words {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: normal;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .divider-text {
+    font-size: 30px; /* Smaller font size for smaller screens */
+    padding: 0 20px; /* Reduced padding */
+  }
+
+  .coordinator {
+    margin-bottom: 15px; /* Reduced margin for smaller screens */
+  }
+
+  .staff {
+    gap: 20px; /* Reduced gap between staff cards */
+    justify-content: center;
+  }
+
+  .profilcard {
+    width: 200px; /* Smaller profile cards */
+    height: 300px; /* Adjusted height */
+  }
+
+  .footer-logo {
+    width: 120px; /* Smaller logo for smaller screens */
+  }
+
+  .motivational-words {
+    font-size: 16px; /* Smaller text size for the quote */
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    gap: 20px; /* Reduced gap between elements */
+  }
+
+  .divider-text {
+    font-size: 18px; /* Even smaller font size for very small screens */
+    padding: 0 15px; /* Adjusted padding */
+  }
+
+  .coordinator {
+    flex-direction: column; /* Stack coordinator profile vertically */
+    align-items: center; /* Center align the profile */
+    margin-bottom: 10px; /* Reduced margin */
+  }
+
+  .staff {
+    flex-direction: column; /* Stack staff profiles vertically */
+    align-items: center; /* Center align the profiles */
+  }
+
+  .profilcard {
+    width: 180px; /* Further reduced width */
+    height: 270px; /* Adjusted height */
+  }
+
+  .footer-logo {
+    width: 100px; /* Further reduced logo size */
+  }
+
+  .motivational-words {
+    font-size: 14px; /* Further reduced text size for very small screens */
+  }
 }
 </style>

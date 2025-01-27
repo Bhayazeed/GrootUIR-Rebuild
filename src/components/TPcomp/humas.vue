@@ -54,6 +54,7 @@
         />
       </div>
     </div>
+
     <!-- Footer Section -->
     <div class="footer-logo-container">
       <div class="footer-logo-section">
@@ -87,7 +88,6 @@ import aku from '@/assets/image/profil.jpg';
   gap: 35px; /* Space between profiles and sections */
 }
 
-/* Divider styling with text overlay */
 /* Divider styling with text overlay */
 .divider {
   display: flex;
@@ -136,31 +136,97 @@ import aku from '@/assets/image/profil.jpg';
   justify-content: center;
   flex-wrap: wrap; /* Ensure cards wrap if space is limited */
 }
+
 /* === Footer Section === */
 .footer-logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.footer-logo-section {
+  margin-bottom: 10px;
+}
+
+.footer-logo {
+  width: 150px;
+  height: auto;
+}
+
+.motivational-words-section {
+  text-align: center;
+}
+
+.motivational-words {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: normal;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .divider-text {
+    font-size: 30px; /* Smaller font size for smaller screens */
+    padding: 0 20px; /* Reduced padding */
   }
 
-  .footer-logo-section {
-    margin-bottom: 10px;
+  .coordinator {
+    margin-bottom: 15px; /* Reduced margin for smaller screens */
+  }
+
+  .staff {
+    gap: 20px; /* Reduced gap between staff cards */
+    justify-content: center;
+  }
+
+  .profilcard {
+    width: 200px; /* Smaller profile cards */
+    height: 300px; /* Adjusted height */
   }
 
   .footer-logo {
-    width: 150px;
-    height: auto;
-  }
-
-  .motivational-words-section {
-    text-align: center;
+    width: 120px; /* Smaller logo for smaller screens */
   }
 
   .motivational-words {
-    font-size: 18px;
-    color: #ffffff;
-    font-weight: normal;
+    font-size: 16px; /* Smaller text size for the quote */
   }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    gap: 20px; /* Reduced gap between elements */
+  }
+
+  .divider-text {
+    font-size: 18px; /* Even smaller font size for very small screens */
+    padding: 0 15px; /* Adjusted padding */
+  }
+
+  .coordinator {
+    flex-direction: column; /* Stack coordinator profile vertically */
+    align-items: center; /* Center align the profile */
+    margin-bottom: 10px; /* Reduced margin */
+  }
+
+  .staff {
+    flex-direction: column; /* Stack staff profiles vertically */
+    align-items: center; /* Center align the profiles */
+  }
+
+  .profilcard {
+    width: 180px; /* Further reduced width */
+    height: 270px; /* Adjusted height */
+  }
+
+  .footer-logo {
+    width: 100px; /* Further reduced logo size */
+  }
+
+  .motivational-words {
+    font-size: 14px; /* Further reduced text size for very small screens */
+  }
+}
 </style>

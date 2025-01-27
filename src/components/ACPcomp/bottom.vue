@@ -36,7 +36,6 @@ import image4 from "@/assets/image/galery4.jpg";
 import image5 from "@/assets/image/galery1.jpg";
 import image6 from "@/assets/image/galery2.jpg";
 
-
 // Sample data for the cards
 const days = ["01", "02", "03", "04", "05", "06"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
@@ -71,7 +70,6 @@ const images = [
   image4,
   image5,
   image6,
-
 ];
 
 // Handle button click
@@ -81,36 +79,62 @@ function handleButtonClick(cardNumber) {
 </script>
 
 <style scoped>
-/* Ensure the page container fills the entire viewport */
+/* Ensure the page container takes full height and has space between components */
 .page-container {
   display: flex;
-  justify-content: center; /* Center the grid horizontally */
-  align-items: center; /* Center the grid vertically */
-  height: 100vh; /* Full height of the viewport */
-  width: 100vw; /* Full width of the viewport */
-  padding: 1rem; /* Padding for spacing on smaller screens */
-  box-sizing: border-box; /* Include padding in width/height */
+  flex-direction: column; /* Arrange top and bottom vertically */
+  justify-content: space-between; /* Add space between top and bottom components */
+  height: 100vh;
+  width: 100vw;
+  padding: 25px;
+  box-sizing: border-box;
 }
+
 
 /* Grid styles */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  grid-gap: 1rem; /* Space between cards */
-  max-width: 1200px; /* Optional: Limit grid width */
-  width: 100%; /* Make the grid responsive */
+  grid-template-columns: repeat(3, 1fr); /* 3 columns by default */
+  grid-gap: 1rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-/* Responsive design for smaller screens */
+/* Responsive design for tablets */
 @media (max-width: 768px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
   }
+  .custom-title {
+    font-size: 16px; /* Adjust the title font size for tablets */
+  }
+  .custom-description {
+    font-size: 12px; /* Adjust the description font size for tablets */
+  }
+  .custom-button {
+    font-size: 14px; /* Adjust the button size for tablets */
+    padding: 8px 14px;
+    margin-top: 10px; /* Ensure button has space between content */
+  }
 }
 
+/* Responsive design for small screens (phones) */
 @media (max-width: 480px) {
   .card-grid {
     grid-template-columns: 1fr; /* 1 column on smaller screens */
+    justify-items: center; /* Center the cards horizontally */
+  }
+  .custom-title {
+    font-size: 14px; /* Adjust the title font size for phones */
+  }
+  .custom-description {
+    font-size: 10px; /* Adjust the description font size for phones */
+  }
+  .custom-button {
+    padding: 6px 12px;
+    font-size: 12px; /* Adjust the button size for phones */
+    margin-top: 8px; /* Add some margin to avoid collision */
   }
 }
 
@@ -135,9 +159,10 @@ function handleButtonClick(cardNumber) {
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  position: absolute;
-  left: 5%;
-  bottom: 4px;
+  position: relative; /* Adjust button position */
+  display: block;
+  margin-top: 10px; /* Ensure button doesn't overlap with description */
+  width: fit-content; /* Ensure button is sized properly */
 }
 
 .custom-button:hover {

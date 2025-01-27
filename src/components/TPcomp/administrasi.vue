@@ -94,6 +94,7 @@ import aku from '@/assets/image/profil.jpg';
   display: flex;
   gap: 35px;
   justify-content: center;
+  flex-wrap: wrap; /* Allows wrapping of profile cards on smaller screens */
 }
 
 /* Profile card styling for uniform appearance */
@@ -104,5 +105,44 @@ import aku from '@/assets/image/profil.jpg';
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .divider-text {
+    font-size: 30px; /* Smaller font size for smaller screens */
+    padding: 0px 20px; /* Reduced padding */
+  }
+
+  .admin-row {
+    gap: 20px; /* Reduced gap between cards */
+  }
+
+  .profilcard {
+    width: 200px; /* Smaller profile cards */
+    height: 300px; /* Adjusted height */
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    gap: 20px; /* Reduced gap between elements */
+  }
+
+  .divider-text {
+    font-size: 18px; /* Even smaller font size for very small screens */
+    padding: 0px 15px; /* Adjusted padding */
+  }
+
+  .admin-row {
+    gap: 10px; /* Even smaller gap between cards */
+    flex-direction: column; /* Stack profile cards vertically */
+    align-items: center; /* Center align the profile cards */
+  }
+
+  .profilcard {
+    width: 180px; /* Further reduced width */
+    height: 270px; /* Adjusted height */
+  }
 }
 </style>

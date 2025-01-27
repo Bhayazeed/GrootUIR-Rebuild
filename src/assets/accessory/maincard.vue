@@ -77,7 +77,6 @@ defineProps({
   },
 });
 
-
 const handleClick = () => {
   props.customAction(); // Call the custom action passed as prop
 };
@@ -94,6 +93,7 @@ const handleClick = () => {
   border: 1px solid #e5e5e5;
   background-color: white;
   position: relative;
+  margin: 20px;
 }
 
 /* Top Image Section */
@@ -177,5 +177,37 @@ const handleClick = () => {
 .read-more-btn:hover {
   background-color: #f9a61d;
   color: #ffffff;
+}
+
+/* Responsiveness for smaller screens (mobile) */
+@media (max-width: 768px) {
+  .card {
+    width: 100%; /* Make the card take up the full width on smaller screens */
+    height: auto; /* Adjust height automatically to fit content */
+    margin: 10px; /* Reduce margins for smaller screens */
+  }
+
+  .card-header {
+    height: 200px; /* Reduce the image height */
+  }
+
+  .date-badge {
+    top: 160px; /* Adjust the position of the date badge */
+    width: 60px; /* Reduce the size of the date badge */
+    height: 70px;
+  }
+
+  .card-title {
+    font-size: 24px; /* Reduce title font size */
+  }
+
+  .card-description {
+    font-size: 16px; /* Reduce description font size */
+  }
+
+  .read-more-btn {
+    font-size: 16px; /* Reduce button font size */
+    padding: 10px 20px; /* Adjust padding for the button */
+  }
 }
 </style>

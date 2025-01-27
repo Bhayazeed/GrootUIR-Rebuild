@@ -1,7 +1,7 @@
 <template>
-      <div class="activity-header">
-      <h1 class="activity-title">Activity</h1>
-    </div>
+  <div class="activity-header">
+    <h1 class="activity-title">Activity</h1>
+  </div>
   <div class="page-container">
     <div class="container">
       <div class="left">
@@ -31,13 +31,12 @@
 
 <script setup>
 import maincard from '../../assets/accessory/maincard.vue';
-import recentpost from '../../assets/accessory/recentpost.vue'; // Import the recentpost component
-import searchbar from '../../assets/accessory/searchbar.vue'; // Import the searchbar component
+import recentpost from '../../assets/accessory/recentpost.vue'; 
+import searchbar from '../../assets/accessory/searchbar.vue'; 
 import image1 from '../../assets/image/galery1.jpg';
 import image2 from '../../assets/image/galery2.jpg';
 import image3 from '../../assets/image/galery3.jpg';
 import image4 from '../../assets/image/galery4.jpg';
-
 
 const postTitles = [
   "GROOT IT UIR GOES TO SUMBAR",
@@ -52,86 +51,126 @@ const postImages = [
   image3,
   image4
 ];
+
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-// Define the custom action to navigate to another page
 function navigateToPage() {
-  router.push({ name: "Test" }); // Replace 'TargetPage' with your route name or path
+  router.push({ name: "Test" });
 }
 </script>
 
 <style scoped>
+.activity-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #f9a61d;
+  text-align: center;
+  margin-top: 20px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #33308e;
+  padding: 10px;
+  line-height: 1.2;
+}
 
-  .activity-title {
-    font-size: 28px;
-    font-weight: bold;
-    color: #f9a61d;
-    text-align: center;
-    margin-top: 20px;
-    max-width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #33308e;
-    padding: 10px;
-    line-height: 1.2;
-  }
 /* Full-page container */
 .page-container {
   display: flex;
-  justify-content: center; /* Center the container horizontally */
-  align-items: center; /* Center the container vertically */
-  height: 100vh; /* Full height of the viewport */
-  width: 100vw; /* Full width of the viewport */
-  padding: 20px; /* Optional: Add padding to prevent content from touching edges */
-  box-sizing: border-box; /* Include padding in width/height */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 /* Main content container */
 .container {
   display: flex;
-  justify-content: space-between; /* Space out the left and right sections */
-  align-items: flex-start; /* Align items at the top */
-  width: 100%; /* Take up full width of the page-container */
-  max-width: 1200px; /* Optional: Limit the maximum width */
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  gap: 20px;
 }
 
 /* Left section styling */
 .left {
-  flex: 2; /* Main card takes up more space */
-  padding-right: 20px; /* Space between left and right sections */
+  flex: 2;
+  padding-right: 20px;
+  max-width: 100%;
 }
 
 /* Right section styling */
 .right {
   display: flex;
-  flex-direction: column; /* Stack the searchbar and recentpost vertically */
-  align-items: flex-end; /* Align them to the right */
-  gap: 20px; /* Add space between the searchbar and recentpost */
-  flex: 1; /* Right section takes up less space */
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+  max-width: 100%;
 }
 
 /* Containers for the searchbar and recentpost */
 .searchbar-container, 
 .recentpost-container {
-  width: 100%; /* Full width of the right section */
-  max-width: 400px; /* Optionally, set a maximum width for these elements */
+  width: 100%;
+  max-width: 400px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .activity-title {
+    font-size: 24px; /* Adjust the font size for the title */
+    padding: 8px;
+  }
+  
+  .searchbar-container, 
+  .recentpost-container {
+    display: none;
+  }
+
   .container {
-    flex-direction: column; /* Stack left and right sections vertically */
-    align-items: center; /* Center them horizontally */
+    flex-direction: column; /* Stack the left and right sections */
+    align-items: center;
   }
 
   .left {
-    padding-right: 0; /* Remove padding when stacked */
-    margin-bottom: 20px; /* Add space between left and right sections */
+    padding-right: 0;
+    margin-bottom: 20px;
+    max-width: 100%;
   }
 
   .right {
-    align-items: center; /* Center align content in the right section */
+    align-items: center;
+    width: 100%;
+  }
+
+  .searchbar-container {
+    margin-bottom: 20px; /* Add space between searchbar and recent posts */
+  }
+
+  /* Resize the main card and adjust for mobile */
+  .maincard-class {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* Additional styling for the recent posts and searchbar on smaller screens */
+@media (max-width: 480px) {
+  .searchbar-container {
+    margin-bottom: 10px;
+  }
+
+  .recentpost-container {
+    margin-top: 10px;
+  }
+
+  .activity-title {
+    font-size: 22px; /* Further reduce title size on very small screens */
   }
 }
 </style>

@@ -36,7 +36,7 @@ const scrollToTop = () => {
 .footer {
   background-color: #33308e;
   color: #ffffff;
-  padding: 1rem 1rem;
+  padding: 1rem;
   text-align: center;
   position: relative;
   width: 100%;
@@ -118,7 +118,7 @@ address {
   font-size: 1.5rem;
   cursor: pointer;
   position: absolute;
-  top: 50px; /* Place the button at the bottom of the footer */
+  bottom: 20px; /* Ensure the button stays at the bottom */
   right: 20px;
   z-index: 1000; /* Ensure the button is on top */
 }
@@ -134,9 +134,33 @@ address {
     text-align: center;
   }
 
+  .logo-section, .contact-section, .social-media-section {
+    flex: 1 1 100%; /* Make the sections take full width on small screens */
+  }
+
   .social-media-section ul {
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row; /* Make social media items horizontal */
+    justify-content: center; /* Center the items */
+    gap: 1rem; /* Add space between items */
+  }
+
+  .scroll-up {
+    font-size: 1.2rem; /* Smaller scroll-up button text */
+    padding: 0.5rem; /* Adjust padding for mobile */
+    bottom: 15px; /* Adjust position for mobile */
+    right: 15px;
+  }
+
+  p {
+    font-size: 0.75rem; /* Smaller footer text on mobile */
+  }
+
+  h3 {
+    font-size: 1rem; /* Smaller heading size */
+  }
+
+  .logo {
+    max-width: 60px; /* Adjust logo size for mobile */
   }
 }
 </style>

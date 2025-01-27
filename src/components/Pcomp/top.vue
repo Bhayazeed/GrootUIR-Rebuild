@@ -3,11 +3,6 @@
     <h1 class="project-title">Project</h1>
   </div>
   <div class="page-container">
-    <div class="left">
-      <div class="tag-container">
-        <Tag :titles="tagTitle" />
-      </div>
-    </div>
     <div class="project-container">
       <Projectcard
         v-for="(project, index) in projects"
@@ -19,8 +14,14 @@
         :tag="project.tag"
       />
     </div>
+    <div class="right">
+      <div class="tag-container">
+        <Tag :titles="tagTitle" />
+      </div>
+    </div>
   </div>
 </template>
+
 <script setup>
 import Projectcard from "../../assets/accessory/projectcard.vue";
 import Tag from "../../assets/accessory/tags.vue";
@@ -37,31 +38,32 @@ const projects = [
     title: "Project 1",
     description: "Write an amazing description in this dedicated card section. Each word counts.",
     fullDescription: "This is the full article about Project 1. It provides detailed insights into the project's goals, implementation, and outcomes. Explore the complete story behind this amazing project here!",
-    tag :"AI",
+    tag: "AI",
   },
   {
     image: img2,
     title: "Project 2",
     description: "Write an amazing description in this dedicated card section. Each word counts.",
     fullDescription: "This is the full article about Project 2. It provides detailed insights into the project's goals, implementation, and outcomes. Explore the complete story behind this amazing project here!",
-    tag :"IOT",
+    tag: "IOT",
   },
   {
     image: img3,
     title: "Project 3",
     description: "Write an amazing description in this dedicated card section. Each word counts.",
     fullDescription: "This is the full article about Project 3. It provides detailed insights into the project's goals, implementation, and outcomes. Explore the complete story behind this amazing project here!",
-    tag :"ROBOTICS",
+    tag: "ROBOTICS",
   },
   {
     image: img4,
     title: "Project 4",
     description: "Write an amazing description in this dedicated card section. Each word counts.",
     fullDescription: "This is the full article about Project 4. It provides detailed insights into the project's goals, implementation, and outcomes. Explore the complete story behind this amazing project here!",
-    tag:"AUTOMATION"
+    tag: "AUTOMATION",
   },
 ];
 </script>
+
 <style scoped>
 .project-title {
   font-size: 28px;
@@ -77,28 +79,10 @@ const projects = [
 
 .page-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Keep row direction */
   justify-content: flex-start;
   gap: 20px;
   width: 100%;
-}
-
-.left {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 300px;
-}
-
-.tag-container {
-  width: 100%;
-}
-
-/* Hide tag on mobile */
-@media (max-width: 768px) {
-  .left {
-    display: none;
-  }
 }
 
 .project-container {
@@ -108,6 +92,39 @@ const projects = [
   width: 100%;
 }
 
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 300px;
+  margin-left: -20px; /* Slide it to the left */
+}
+
+.tag-container {
+  width: 100%;
+}
+
+/* Move tag to the right side */
+@media (max-width: 768px) {
+  .tag-container {
+    display: none; /* Reverse the order of left and right side on mobile */
+  }
+  .project-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .project-container .projectcard {
+    flex: 1 1 100%;
+  }
+
+  /* Slide the tag container further to the left */
+  .right {
+    margin-left: -30px; /* Adjust the value to slide it further left */
+  }
+}
+
+/* Styles for project cards */
 .project-container .projectcard {
   flex: 1 1 calc(50% - 20px);
   border-radius: 8px;
@@ -119,15 +136,4 @@ const projects = [
   transform: scale(1.05);
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .project-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .project-container .projectcard {
-    flex: 1 1 100%;
-  }
-}
 </style>
