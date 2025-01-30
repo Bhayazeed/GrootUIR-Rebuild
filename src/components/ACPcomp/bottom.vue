@@ -4,6 +4,7 @@
       <Card
         v-for="n in 6"
         :key="n"
+        class="card-item" 
         :day="days[n - 1]"
         :month="months[n - 1]"
         :title="titles[n - 1]"
@@ -28,6 +29,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
 import Card from "@/assets/accessory/card.vue";
 import image1 from "@/assets/image/galery1.jpg";
 import image2 from "@/assets/image/galery2.jpg";
@@ -63,19 +65,29 @@ const headerColors = [
   "#ff5722",
   "#673ab7",
 ];
-const images = [
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-];
+const images = [image1, image2, image3, image4, image5, image6];
 
 // Handle button click
 function handleButtonClick(cardNumber) {
   console.log(`Button clicked on card ${cardNumber}`);
 }
+
+// Efek animasi saat scroll menggunakan IntersectionObserver
+onMounted(() => {
+  const cards = document.querySelectorAll(".card-item");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  cards.forEach((card) => observer.observe(card));
+});
 </script>
 
 <style scoped>
@@ -90,7 +102,6 @@ function handleButtonClick(cardNumber) {
   box-sizing: border-box;
 }
 
-
 /* Grid styles */
 .card-grid {
   display: grid;
@@ -99,6 +110,19 @@ function handleButtonClick(cardNumber) {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+}
+
+/* Efek fade-in saat muncul */
+.card-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Saat elemen masuk ke dalam viewport */
+.card-item.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Responsive design for tablets */

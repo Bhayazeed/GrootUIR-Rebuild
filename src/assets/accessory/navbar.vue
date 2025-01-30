@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" :class="{ hidden: isHidden }">
     <div class="navbar-left">
       <router-link to="/">
         <img src="../../components/icons/logo.png" alt="GROOT logo" class="logo" />
@@ -24,35 +24,73 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted, onUnmounted, watch } from "vue";
+import { useRoute } from "vue-router";
 
-const isMenuOpen = ref(false); // Track whether the menu is open
-const route = useRoute(); // Access the current route
+const isMenuOpen = ref(false);
+const isHidden = ref(false);
+let lastScrollY = 0;
+const route = useRoute();
 
-// Close the menu when the route changes
+// Toggle menu
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
+// Tutup menu saat route berubah
 watch(() => route.fullPath, () => {
   isMenuOpen.value = false;
 });
 
-// Toggle menu visibility
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
+// Fungsi untuk menyembunyikan navbar saat scroll ke bawah
+const handleScroll = () => {
+  const currentScrollY = window.scrollY;
+  isHidden.value = currentScrollY > lastScrollY && currentScrollY > 50;
+  lastScrollY = currentScrollY;
 };
+
+// Fungsi untuk menampilkan navbar kembali saat kursor bergerak ke atas
+const handleMouseMove = (event) => {
+  if (event.movementY < 0) {
+    isHidden.value = false;
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("mousemove", handleMouseMove);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+  window.removeEventListener("mousemove", handleMouseMove);
+});
 </script>
 
 <style scoped>
-/* General Styles */
+/* Navbar Default */
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; /* Pastikan navbar memiliki tinggi tetap */
   background-color: #fff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  box-sizing: border-box;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
 }
+
+
+/* Navbar Tersembunyi */
+.hidden {
+  transform: translateY(-100%);
+}
+
 
 .navbar-left {
   display: flex;
@@ -138,7 +176,7 @@ const toggleMenu = () => {
     left: 0;
     z-index: 1100; /* Ensure the navbar stays in front */
   }
-
+  
   .navbar-links {
     display: none;
     flex-direction: column;
@@ -151,16 +189,16 @@ const toggleMenu = () => {
     padding: 10px 0;
     z-index: 1000; /* Ensure the menu is in front */
   }
-
+  
   .navbar-links li {
     margin: 10px 20px; /* Add some padding for better spacing */
     text-align: left; /* Align the menu items to the left */
   }
-
+  
   .navbar-links--active {
     display: flex;
   }
-
+  
   .hamburger {
     display: flex;
     z-index: 1200; /* Ensure the hamburger icon is in front */
@@ -168,7 +206,7 @@ const toggleMenu = () => {
     right: 20px; /* Keep the hamburger aligned to the right */
     top: 20px;
   }
-
+  
   .login-button {
     display: none; /* Hides the login button on small screens */
   }

@@ -5,7 +5,7 @@
     </h2>
     <ul class="post-list">
       <li v-for="(postTitle, index) in titles" :key="index" class="post-item">
-        <div class="post-content">
+        <div class="post-content" @click="savePostUrl(postUrls[index])">
           <div
             class="post-image"
             :style="{ backgroundImage: `url(${images[index] || placeholderImage})` }"
@@ -18,9 +18,11 @@
   </div>
 </template>
 
-<script setup>
-import { defineProps } from "vue";
 
+<script setup>
+import { defineProps, ref } from "vue";
+
+// Mendefinisikan props
 defineProps({
   titles: {
     type: Array,
@@ -32,11 +34,24 @@ defineProps({
     required: false,
     default: () => [],
   },
+  postUrls: {
+    type: Array,
+    required: true,
+    default: () => [],
+  },
 });
 
-const placeholderImage = "https://via.placeholder.com/60"; // Fallback image URL
-</script>
+const placeholderImage = "https://via.placeholder.com/60"; // Gambar cadangan
 
+// Variabel untuk menyimpan URL yang dipilih
+const selectedPostUrl = ref("");
+
+// Fungsi untuk menyimpan URL ketika postingan diklik
+const savePostUrl = (url) => {
+  selectedPostUrl.value = url;
+  console.log("Post URL saved:", selectedPostUrl.value);
+};
+</script>
 <style scoped>
 .recent-post {
   width: 100%;
@@ -73,6 +88,7 @@ const placeholderImage = "https://via.placeholder.com/60"; // Fallback image URL
 .post-content {
   display: flex;
   align-items: center;
+  cursor: pointer; /* Add cursor pointer to indicate clickable items */
 }
 
 .post-image {
@@ -99,3 +115,4 @@ const placeholderImage = "https://via.placeholder.com/60"; // Fallback image URL
   margin: 15px 0;
 }
 </style>
+

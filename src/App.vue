@@ -16,7 +16,7 @@ import Footer from './assets/accessory/footer.vue';
 
 <style>
 body {
-  background-color: #ffffff; /* Light gray background for contrast */
+  background-color: #ffffff;
   font-family: Poppins;
   margin: 0;
 }
@@ -31,5 +31,7 @@ body {
 main {
   text-align: center;
   width: 100%;
+  padding-top: 60px;
+  padding-bottom: 60px; /* Tambahkan padding sesuai tinggi navbar */
 }
 </style>

@@ -36,10 +36,10 @@ const scrollToTop = () => {
 .footer {
   background-color: #33308e;
   color: #ffffff;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   text-align: center;
-  position: relative;
   width: 100%;
+  position: relative; /* Pastikan footer berada setelah konten */
   bottom: 0;
 }
 
@@ -47,31 +47,39 @@ const scrollToTop = () => {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .logo-section,
 .contact-section,
 .social-media-section {
-  flex: 1 1 180px;
-  color: #ffffff;
+  flex: 1 1 250px;
+  text-align: center;
 }
 
 .logo {
   max-width: 80px;
   margin-bottom: 0.5rem;
-  opacity: 1;
 }
 
 p {
-  font-size: small;
-  color: #ffffff;
+  font-size: 0.9rem;
 }
 
 h3 {
+  font-size: 1rem;
   margin-bottom: 0.5rem;
 }
 
+address {
+  font-style: normal;
+  line-height: 1.5;
+}
+
+/* Social Media Icons */
 ul {
   list-style: none;
   padding: 0;
@@ -80,51 +88,35 @@ ul {
   justify-content: center;
 }
 
-ul li {
-  margin: 0;
-}
-
 ul li a {
   color: #ffffff;
   text-decoration: none;
-}
-
-/* Increase the size of social media icons */
-ul li a i {
-  font-size: 2rem; /* Increase the icon size */
-  transition: transform 0.3s ease; /* Add smooth transition for hover effect */
+  font-size: 1.8rem;
+  transition: transform 0.3s ease;
 }
 
 ul li a:hover {
-  text-decoration: underline;
+  transform: scale(1.2);
 }
 
-ul li a i:hover {
-  transform: scale(1.2); /* Slightly enlarge the icon on hover */
-}
-
-address {
-  font-style: normal;
-  line-height: 1.5;
-}
-
-/* Scroll-up Button inside the footer */
+/* Tombol Scroll-Up */
 .scroll-up {
   background-color: #f9a61d;
   color: #ffffff;
   border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  font-size: 1.5rem;
+  border-radius: 50%;
+  padding: 0.8rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  position: absolute;
-  bottom: 20px; /* Ensure the button stays at the bottom */
+  position: fixed; /* Agar tetap terlihat saat scroll */
+  bottom: 20px;
   right: 20px;
-  z-index: 1000; /* Ensure the button is on top */
+  z-index: 1000;
+  transition: opacity 0.3s ease;
 }
 
 .scroll-up:hover {
-  background-color: #f9a61d;
+  background-color: #ffb74d;
 }
 
 /* Responsive Design */
@@ -134,33 +126,19 @@ address {
     text-align: center;
   }
 
-  .logo-section, .contact-section, .social-media-section {
-    flex: 1 1 100%; /* Make the sections take full width on small screens */
+  .logo {
+    max-width: 60px;
   }
 
-  .social-media-section ul {
-    flex-direction: row; /* Make social media items horizontal */
-    justify-content: center; /* Center the items */
-    gap: 1rem; /* Add space between items */
+  ul {
+    flex-direction: row;
+    justify-content: center;
   }
 
   .scroll-up {
-    font-size: 1.2rem; /* Smaller scroll-up button text */
-    padding: 0.5rem; /* Adjust padding for mobile */
-    bottom: 15px; /* Adjust position for mobile */
+    bottom: 15px;
     right: 15px;
-  }
-
-  p {
-    font-size: 0.75rem; /* Smaller footer text on mobile */
-  }
-
-  h3 {
-    font-size: 1rem; /* Smaller heading size */
-  }
-
-  .logo {
-    max-width: 60px; /* Adjust logo size for mobile */
+    font-size: 1rem;
   }
 }
 </style>
