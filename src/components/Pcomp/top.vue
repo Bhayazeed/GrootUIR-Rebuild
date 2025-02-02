@@ -5,7 +5,7 @@
   <div class="page-container">
     <div class="project-container">
       <Projectcard
-        v-for="(project, index) in projects"
+        v-for="(project, index) in filteredProjects"
         :key="index"
         :image="project.image"
         :title="project.title"
@@ -16,13 +16,14 @@
     </div>
     <div class="right">
       <div class="tag-container">
-        <Tag :titles="tagTitle" />
+        <Tag :titles="tagTitle" @tagSelected="filterProjects" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
 import Projectcard from "../../assets/accessory/projectcard.vue";
 import Tag from "../../assets/accessory/tags.vue";
 import img1 from "../../assets/image/galery1.jpg";
@@ -62,6 +63,19 @@ const projects = [
     tag: "AUTOMATION",
   },
 ];
+
+const selectedTag = ref(null);
+
+// Filter projects based on selected tag
+const filteredProjects = computed(() => {
+  if (!selectedTag.value) return projects;
+  return projects.filter((project) => project.tag === selectedTag.value);
+});
+
+// Method to handle tag selection
+const filterProjects = (tag) => {
+  selectedTag.value = tag;
+};
 </script>
 
 <style scoped>
@@ -80,7 +94,7 @@ const projects = [
 .page-container {
   display: flex;
   flex-direction: row; /* Keep row direction */
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 20px;
   width: 100%;
 }
@@ -104,23 +118,18 @@ const projects = [
   width: 100%;
 }
 
-/* Move tag to the right side */
+/* Mobile styles */
 @media (max-width: 768px) {
   .tag-container {
-    display: none; /* Reverse the order of left and right side on mobile */
+    display: none;
   }
   .project-container {
     flex-direction: column;
     gap: 15px;
   }
 
-  .project-container .projectcard {
-    flex: 1 1 100%;
-  }
-
-  /* Slide the tag container further to the left */
   .right {
-    margin-left: -30px; /* Adjust the value to slide it further left */
+    margin-left: -30px;
   }
 }
 
@@ -135,5 +144,4 @@ const projects = [
 .project-container .projectcard:hover {
   transform: scale(1.05);
 }
-
 </style>
