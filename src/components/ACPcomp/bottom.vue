@@ -38,7 +38,7 @@ import image4 from "@/assets/image/galery4.jpg";
 import image5 from "@/assets/image/galery1.jpg";
 import image6 from "@/assets/image/galery2.jpg";
 
-// Sample data for the cards
+// Data untuk card
 const days = ["01", "02", "03", "04", "05", "06"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
 const titles = [
@@ -91,78 +91,80 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Ensure the page container takes full height and has space between components */
+/* Pastikan html dan body memiliki tinggi 100% agar min-height dapat berfungsi dengan baik */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Container utama diberikan min-height dengan mengurangi tinggi footer (misalnya 100px) */
 .page-container {
-  display: flex;
-  flex-direction: column; /* Arrange top and bottom vertically */
-  justify-content: space-between; /* Add space between top and bottom components */
-  height: 100vh;
-  width: 100vw;
+  min-height: calc(100vh - 100px); /* Sesuaikan 100px dengan tinggi footer Anda */
   padding: 25px;
   box-sizing: border-box;
 }
 
-/* Grid styles */
+/* Grid untuk card */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns by default */
+  grid-template-columns: repeat(3, 1fr); /* 3 kolom secara default */
   grid-gap: 1rem;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* Efek fade-in saat muncul */
+/* Efek fade-in untuk card */
 .card-item {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* Saat elemen masuk ke dalam viewport */
 .card-item.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Responsive design for tablets */
+/* Responsive design untuk tablet */
 @media (max-width: 768px) {
   .card-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom pada tablet */
   }
   .custom-title {
-    font-size: 16px; /* Adjust the title font size for tablets */
+    font-size: 16px;
   }
   .custom-description {
-    font-size: 12px; /* Adjust the description font size for tablets */
+    font-size: 12px;
   }
   .custom-button {
-    font-size: 14px; /* Adjust the button size for tablets */
+    font-size: 14px;
     padding: 8px 14px;
-    margin-top: 10px; /* Ensure button has space between content */
+    margin-top: 10px;
   }
 }
 
-/* Responsive design for small screens (phones) */
+/* Responsive design untuk ponsel */
 @media (max-width: 480px) {
   .card-grid {
-    grid-template-columns: 1fr; /* 1 column on smaller screens */
-    justify-items: center; /* Center the cards horizontally */
+    grid-template-columns: 1fr; /* 1 kolom pada layar kecil */
+    justify-items: center;
   }
   .custom-title {
-    font-size: 14px; /* Adjust the title font size for phones */
+    font-size: 14px;
   }
   .custom-description {
-    font-size: 10px; /* Adjust the description font size for phones */
+    font-size: 10px;
   }
   .custom-button {
     padding: 6px 12px;
-    font-size: 12px; /* Adjust the button size for phones */
-    margin-top: 8px; /* Add some margin to avoid collision */
+    font-size: 12px;
+    margin-top: 8px;
   }
 }
 
-/* Custom styles for slots */
+/* Custom styles untuk slot konten card */
 .custom-title {
   font-size: 18px;
   color: #33308e;
@@ -170,7 +172,7 @@ onMounted(() => {
 
 .custom-description {
   font-size: 14px;
-  color: #1C1C1C;
+  color: #1c1c1c;
 }
 
 .custom-button {
@@ -183,10 +185,9 @@ onMounted(() => {
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  position: relative; /* Adjust button position */
   display: block;
-  margin-top: 10px; /* Ensure button doesn't overlap with description */
-  width: fit-content; /* Ensure button is sized properly */
+  margin-top: 10px;
+  width: fit-content;
 }
 
 .custom-button:hover {

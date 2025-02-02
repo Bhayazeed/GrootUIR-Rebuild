@@ -14,50 +14,64 @@
         </address>
       </div>
       <div class="social-media-section">
-        <h3>Social Media</h3>
+        <h3>Follow Us</h3>
         <ul>
-          <li><a href="https://www.instagram.com/grootuir"><i class="fa-brands fa-instagram"></i></a></li>
-          <li><a href="https://youtube.com/@grootuir7090"><i class="fa-brands fa-youtube"></i></a></li>
-          <li><a href="https://www.facebook.com/groot.uir/"><i class="fa-brands fa-facebook"></i></a></li>
+          <li><a href="https://www.instagram.com/grootuir" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+          <li><a href="https://youtube.com/@grootuir7090" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></li>
+          <li><a href="https://www.facebook.com/groot.uir/" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a></li>
         </ul>
       </div>
     </div>
-    <button class="scroll-up" @click="scrollToTop"><i class="fa-solid fa-chevron-up"></i></button>
+    <button v-show="showScroll" class="scroll-up" @click="scrollToTop">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
   </footer>
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+
+const showScroll = ref(false);
+
+const handleScroll = () => {
+  showScroll.value = window.scrollY > 300;
+};
+
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 </script>
 
 <style scoped>
 .footer {
   background-color: #33308e;
   color: #ffffff;
-  padding: 1.5rem 1rem;
+  padding: 2rem 1rem;
   text-align: center;
   width: 100%;
-  position: relative; /* Pastikan footer berada setelah konten */
-  bottom: 0;
 }
 
 .footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
 
-.logo-section,
-.contact-section,
-.social-media-section {
-  flex: 1 1 250px;
-  text-align: center;
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo {
@@ -65,21 +79,18 @@ const scrollToTop = () => {
   margin-bottom: 0.5rem;
 }
 
-p {
-  font-size: 0.9rem;
-}
-
 h3 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
 
 address {
   font-style: normal;
   line-height: 1.5;
+  font-size: 0.95rem;
 }
 
-/* Social Media Icons */
+/* Social Media */
 ul {
   list-style: none;
   padding: 0;
@@ -92,14 +103,15 @@ ul li a {
   color: #ffffff;
   text-decoration: none;
   font-size: 1.8rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 ul li a:hover {
   transform: scale(1.2);
+  color: #f9a61d;
 }
 
-/* Tombol Scroll-Up */
+/* Scroll-Up Button */
 .scroll-up {
   background-color: #f9a61d;
   color: #ffffff;
@@ -108,20 +120,23 @@ ul li a:hover {
   padding: 0.8rem;
   font-size: 1.2rem;
   cursor: pointer;
-  position: fixed; /* Agar tetap terlihat saat scroll */
+  position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 1000;
-  transition: opacity 0.3s ease;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .scroll-up:hover {
   background-color: #ffb74d;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .footer-container {
+    display: flex;
     flex-direction: column;
     text-align: center;
   }
