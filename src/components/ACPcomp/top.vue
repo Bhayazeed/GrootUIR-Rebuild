@@ -27,6 +27,7 @@
             v-if="recentPosts.length"
             :titles="recentPosts.map(post => post.title)"
             :images="recentPosts.map(post => post.image || defaultImage)"
+            @click="goToViewPage"
           />
         </div>
       </div>
@@ -49,7 +50,11 @@ const recentPosts = ref([]);
 
 const router = useRouter();
 
-// Fungsi untuk mengambil data aktivitas terbaru dari API
+// Fungsi untuk menangani klik dan mengarahkan ke halaman view dengan ID aktivitas
+function goToViewPage(post) {
+  router.push({ name: 'view', params: { id: post.id_activity } });
+}
+
 async function fetchActivities() {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/activities`, {
