@@ -18,28 +18,31 @@
         :description="activity.description"
         buttonText="Read More"
         headerColor="#1e3a8a"
-        :image="activity.image"
-        @button-click="handleButtonClick(activity.id_activity)"
+        :image="activity.image || defaultImage"
+        @button-click="() => handleButtonClick(activity.id_activity)"
       >
         <!-- Slot title -->
         <template #title>
           <h2 class="custom-title">{{ activity.title }}</h2>
         </template>
-        <!-- Hapus slot description agar komponen Card menampilkan deskripsi yang dipendekkan secara default -->
         <!-- Slot button -->
         <template #button>
-          <button class="custom-button">Read More</button>
+          <button class="custom-button" @click="handleButtonClick(activity.id_activity)">Read More</button>
         </template>
       </Card>
+
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
+import { useRouter } from "vue-router";
 import Card from "@/assets/accessory/card.vue";
+import defaultImage from "../../assets/image/galery1.jpg";
 
 // Variabel reaktif
+const router = useRouter();
 const activities = ref([]);
 const loading = ref(true);
 const error = ref("");
@@ -52,9 +55,9 @@ function formatDate(dateStr) {
   return { day, month };
 }
 
-// Fungsi untuk menangani klik tombol pada setiap card
+
 function handleButtonClick(id_activity) {
-  console.log("Button clicked for activity:", id_activity);
+  router.push({ name: 'View', params: { id: id_activity } });
 }
 
 // Fungsi untuk mengambil data aktivitas dari API
@@ -76,11 +79,9 @@ const fetchActivities = async () => {
     }
 
     const result = await response.json();
-    console.log("API Response:", result);
 
     if (result.success && result.data && result.data.data) {
       activities.value = result.data.data;
-      console.log("Aktivitas yang diterima:", activities.value); // Debug log
     } else {
       throw new Error(result.message || "Gagal mengambil data");
     }

@@ -1,25 +1,123 @@
 <template>
-          <extendcard
-        title="KRSI"
-        description="Lorem ipsum odor amet, consectetuer adipiscing elit. Odio erat habitant primis cras morbi litora molestie. Phasellus dignissim massa; volutpat tempus ex dui facilisis urna. Purus malesuada litora cras interdum hac nunc pulvinar nisl. Conubia tincidunt maecenas justo rhoncus ad varius penatibus habitant. Semper a et velit metus diam enim mauris libero montes. Morbi malesuada urna sapien congue sit ad lacus. Egestas vitae vel, laoreet enim hac class. Vivamus nam aliquet porta varius ligula. Elementum torquent fringilla cubilia augue odio magna nostra dictumst parturient.
-
-Consequat ultricies potenti cubilia quis feugiat in eros nunc. Taciti molestie accumsan interdum nulla lorem maecenas curae iaculis. Ex elementum curabitur sollicitudin hac ipsum hac ad. Mollis suscipit tincidunt leo integer, nisi leo libero. Congue tellus at lacus neque lobortis montes rhoncus pharetra felis. Id urna hac turpis habitasse tristique per. Habitasse sit curae sapien; aliquam morbi metus. Accumsan sed arcu sagittis risus, quisque platea suscipit orci fames. Volutpat enim ut adipiscing maximus aenean hac nisi rhoncus.
-
-Duis varius eleifend class semper ultricies turpis feugiat dolor vitae. Sapien sit habitasse ornare, primis suscipit platea. Tortor lacinia rhoncus ad nullam nunc aenean. Mattis urna feugiat at laoreet eros hac proin. Nisl imperdiet parturient hendrerit in ante sollicitudin suspendisse quisque porta. Molestie diam fusce est elit, pulvinar in ac dui felis. Lobortis lobortis inceptos cubilia sem; accumsan dignissim lacinia. Sagittis et fusce facilisi egestas venenatis dictum turpis nec. Potenti volutpat turpis auctor odio ante. Sagittis luctus pulvinar quisque lacinia neque quis.
-
-Posuere urna adipiscing inceptos auctor sagittis. Leo ut eleifend dictum pretium ornare. Aliquet elementum porttitor hac eu litora tortor rhoncus. Enim augue quisque sagittis purus non per volutpat. Vulputate velit mollis faucibus nulla nam parturient vestibulum bibendum. Dictumst aliquet vivamus molestie egestas sodales mattis lobortis. Arcu tempor litora sollicitudin sem fermentum. At volutpat et quis nulla nam cubilia placerat mauris.
-
-Dignissim pretium commodo purus mauris habitasse duis id dapibus magna. Turpis accumsan sapien justo libero magnis ad elit quis. Nam consequat morbi efficitur porta nulla. Scelerisque nunc purus efficitur libero fusce ante semper. Viverra magna iaculis cursus platea rhoncus; egestas nisi feugiat? Laoreet ultrices eget diam porta venenatis velit. Fusce magnis scelerisque ligula; interdum sit natoque lectus penatibus. Dapibus auctor placerat dignissim habitant iaculis.
-itasse, porttitor mattis."
-        creator="Fadhlur Rohman"
-        date="2021-10-10"
-        customClass=""
-        headerColor="#1e3a8a"
-        :image="img"
-      />
+  <div class="container">
+    <div v-if="loading" class="loading-message">Loading...</div>
+    <div v-else-if="error" class="error-message">{{ error }}</div>
+    <extendcard
+      v-else
+      :title="activity.title"
+      :description="activity.description"
+      :creator="activity.created_by"
+      :date="formattedDate"
+      customClass=""
+      headerColor="#1e3a8a"
+      :image="activity.image || defaultImage"
+    />
+  </div>
 </template>
 
 <script setup>
-import extendcard from '../assets/accessory/extendcard.vue';
-import img from '../assets/image/galery1.jpg';
+import { ref, computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import extendcard from "../assets/accessory/extendcard.vue";
+import defaultImage from "../assets/image/galery1.jpg";
+
+const route = useRoute();
+const id = route.params.id;
+
+
+onMounted(() => {
+  fetchActivity();
+});
+
+const activity = ref({});
+const loading = ref(true);
+const error = ref("");
+
+const formattedDate = computed(() => {
+  if (activity.value.created_at) {
+    const date = new Date(activity.value.created_at);
+    return date.toLocaleDateString("id-ID", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
+  return "";
+});
+
+const fetchActivity = async () => {
+  try {
+    const apiUrl = `${import.meta.env.VITE_API_URL}/activities/${id}`;
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "x-api-key": `${import.meta.env.VITE_API_KEY}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    if (result.success && result.data) {
+      activity.value = result.data;
+    } else {
+      throw new Error(result.message || "Gagal mengambil data aktivitas");
+    }
+  } catch (err) {
+    error.value = `Gagal mengambil data: ${err.message}`;
+    console.error("Error fetching activity:", err);
+  } finally {
+    loading.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchActivity();
+});
 </script>
+
+<style scoped>
+/* Container utama */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Membuat konten selalu berada di tengah secara vertikal */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Loading dan error message */
+.loading-message,
+.error-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+  padding: 1rem;
+}
+
+/* Responsivitas */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Jika layar kecil, tata letak menjadi kolom */
+    padding: 0.5rem;
+  }
+
+  .loading-message,
+  .error-message {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-message,
+  .error-message {
+    font-size: 0.9rem; /* Ukuran font lebih kecil untuk layar kecil */
+  }
+}
+</style>

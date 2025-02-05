@@ -80,7 +80,7 @@ const emit = defineEmits(["button-click"]);
 
 // Computed property untuk memendekkan deskripsi
 const truncatedDescription = computed(() => {
-  const maxLength = 50; // Atur jumlah karakter maksimal sesuai kebutuhan
+  const maxLength = 73; // Atur jumlah karakter maksimal sesuai kebutuhan
   return props.description.length > maxLength
     ? props.description.slice(0, maxLength) + "..."
     : props.description;

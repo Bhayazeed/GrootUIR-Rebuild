@@ -20,14 +20,14 @@
         <h2 class="card-title">{{ title }}</h2>
       </slot>
       <slot name="description">
-        <p class="card-description">{{ description }}</p>
+        <p class="card-description">{{ description }}...</p>
       </slot>
     </div>
 
     <!-- Read More Button -->
     <div class="card-footer">
       <slot name="button">
-        <button v-if="buttonText" class="read-more-btn" @click="handleClick">
+        <button v-if="buttonText" class="read-more-btn" @click="onButtonClick">
           {{ buttonText }}
         </button>
       </slot>
@@ -36,51 +36,55 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { useRouter } from "vue-router";
+import { defineProps, defineEmits } from "vue";
+const router = useRouter();
 
-defineProps({
+const props = defineProps({
   image: {
     type: String,
-    default: "", // Default image (empty string)
+    default: "", 
   },
   day: {
     type: String,
-    default: "01", // Default day
+    default: "01", 
   },
   month: {
     type: String,
-    default: "Jan", // Default month
+    default: "Jan", 
   },
   title: {
     type: String,
-    default: "Default Title", // Default title
+    default: "Default Title", 
   },
   description: {
     type: String,
-    default: "Default description goes here.", // Default description
+    default: "Default description goes here.", 
   },
   buttonText: {
     type: String,
-    default: "", // Default button text
+    default: "", 
   },
   customClass: {
     type: String,
-    default: "", // Custom class for styling
+    default: "", 
   },
   showDateBadge: {
     type: Boolean,
-    default: true, // Whether to show the date badge
+    default: true, 
   },
-  customAction: {
-    type: Function,
-    default: () => {}, // Default to an empty function if no custom action is passed
-  },
+  id_activity: {
+    type: [String, Number],
+    required: true,  // Add id_activity prop here
+  }
 });
 
-const handleClick = () => {
-  props.customAction(); // Call the custom action passed as prop
-};
+function onButtonClick() {
+  router.push({ name: 'View', params: { id: props.id_activity } });
+}
 </script>
+
+
 
 <style scoped>
 /* Card Container */
@@ -150,14 +154,14 @@ const handleClick = () => {
   color: #666666;
   margin: 0;
   line-height: 1.5;
-  max-height: 120px;
+  max-height: 60px; /* Adjust this value to show less text */
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 /* Card Footer (Button Section) */
 .card-footer {
-  padding: 24px;
+  margin-left: 20px;
   text-align: left;
 }
 
@@ -210,4 +214,22 @@ const handleClick = () => {
     padding: 10px 20px; /* Adjust padding for the button */
   }
 }
+
+/* Further responsiveness for very small screens (e.g., mobile phones in portrait mode) */
+@media (max-width: 480px) {
+  .card-title {
+    font-size: 20px; /* Make the title even smaller for very small screens */
+  }
+
+  .card-description {
+    font-size: 14px; /* Further reduce description size */
+  }
+
+  .read-more-btn {
+    font-size: 14px; /* Smaller button font */
+    padding: 8px 16px; /* Adjust button padding for very small screens */
+    margin-bottom: 15px;
+  }
+}
+
 </style>

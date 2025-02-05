@@ -41,7 +41,7 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: '/view',
+      path: '/view/:id',
       name: 'View',
       component: View,
     },

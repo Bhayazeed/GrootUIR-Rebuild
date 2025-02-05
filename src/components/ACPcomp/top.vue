@@ -6,15 +6,16 @@
     <div class="container">
       <div class="left">
         <maincard
-          :image="image1"
-          day="27"
-          month="Feb"
-          title="GROOT IT UIR GOES TO SUMBAR 2020"
-          description="This card is highly reusable and flexible."
+          v-if="latestPost"
+          :image="latestPost.image || defaultImage"
+          :day="formatDate(latestPost.created_at).day"
+          :month="formatDate(latestPost.created_at).month"
+          :title="latestPost.title"
+          :description="latestPost.description"
           buttonText="Read More"
           customClass="custom-card-class"
           :showDateBadge="true"
-          :custom-action="navigateToPage"
+          :id_activity="latestPost.id_activity" 
         />
       </div>
       <div class="right">
@@ -22,7 +23,11 @@
           <searchbar />
         </div>
         <div class="recentpost-container">
-          <recentpost :titles="postTitles" :images="postImages" />
+          <recentpost
+            v-if="recentPosts.length"
+            :titles="recentPosts.map(post => post.title)"
+            :images="recentPosts.map(post => post.image || defaultImage)"
+          />
         </div>
       </div>
     </div>
@@ -30,35 +35,62 @@
 </template>
 
 <script setup>
-import maincard from '../../assets/accessory/maincard.vue';
-import recentpost from '../../assets/accessory/recentpost.vue'; 
-import searchbar from '../../assets/accessory/searchbar.vue'; 
-import image1 from '../../assets/image/galery1.jpg';
-import image2 from '../../assets/image/galery2.jpg';
-import image3 from '../../assets/image/galery3.jpg';
-import image4 from '../../assets/image/galery4.jpg';
-
-const postTitles = [
-  "GROOT IT UIR GOES TO SUMBAR",
-  "AI CAN CHANGE THE FUTURE FOR THE BETTER OF US",
-  "THE WORLD IS BETTER FUTURE AND IS GOOD!",
-  "NBA PLAYER YAZIID IS GOING TO SACRAMENTO KINGS!",
-];
-
-const postImages = [
-  image1,
-  image2,
-  image3,
-  image4
-];
-
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import maincard from "../../assets/accessory/maincard.vue";
+import recentpost from "../../assets/accessory/recentpost.vue";
+import searchbar from "../../assets/accessory/searchbar.vue";
+import defaultImage from "../../assets/image/galery1.jpg";
+
+// Reaktif variabel untuk data
+const activities = ref([]);
+const latestPost = ref(null);
+const recentPosts = ref([]);
+
 const router = useRouter();
 
-function navigateToPage() {
-  router.push({ name: "Test" });
+// Fungsi untuk mengambil data aktivitas terbaru dari API
+async function fetchActivities() {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/activities`, {
+      method: "GET",
+      headers: {
+        "x-api-key": `${import.meta.env.VITE_API_KEY}`,
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+
+    if (result.success && result.data && result.data.data) {
+      const allActivities = result.data.data;
+
+      // Ambil data terbaru pertama untuk `maincard`
+      latestPost.value = allActivities[0];
+
+      // Sisanya untuk `recentpost`
+      recentPosts.value = allActivities.slice(1);
+    }
+  } catch (err) {
+    console.error("Error fetching activities:", err);
+  }
 }
+
+// Fungsi format tanggal
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const day = ("0" + date.getDate()).slice(-2);
+  const month = date.toLocaleString("default", { month: "short" });
+  return { day, month };
+}
+
+// Ambil data saat komponen dimuat
+onMounted(() => {
+  fetchActivities();
+});
 </script>
+
+
 
 <style scoped>
 .activity-title {
