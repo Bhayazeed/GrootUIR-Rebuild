@@ -52,7 +52,7 @@ const router = useRouter();
 
 // Fungsi untuk menangani klik dan mengarahkan ke halaman view dengan ID aktivitas
 function goToViewPage(post) {
-  router.push({ name: 'view', params: { id: post.id_activity } });
+  router.push({ name: 'View', params: { id: post.id_activity } });
 }
 
 async function fetchActivities() {
