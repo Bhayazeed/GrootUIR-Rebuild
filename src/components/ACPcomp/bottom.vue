@@ -1,25 +1,32 @@
 <template>
   <div class="page-container">
-    <div class="card-grid">
+    <!-- Tampilkan pesan error jika terjadi kesalahan -->
+    <div v-if="error" class="error-message">{{ error }}</div>
+
+    <!-- Tampilkan indikator loading saat data sedang dimuat -->
+    <div v-if="loading" class="loading-message">Loading...</div>
+
+    <div class="card-grid" v-else>
+      <!-- Iterasi data aktivitas yang didapat dari API -->
       <Card
-        v-for="n in 6"
-        :key="n"
-        class="card-item" 
-        :day="days[n - 1]"
-        :month="months[n - 1]"
-        :title="titles[n - 1]"
-        :description="descriptions[n - 1]"
-        :buttonText="'Read More'"
-        :headerColor="headerColors[n - 1]"
-        :image="images[n - 1]"
-        @button-click="handleButtonClick(n)"
+        v-for="activity in activities"
+        :key="activity.id_activity"
+        class="card-item"
+        :day="formatDate(activity.created_at).day"
+        :month="formatDate(activity.created_at).month"
+        :title="activity.title"
+        :description="activity.description"
+        buttonText="Read More"
+        headerColor="#1e3a8a"
+        :image="activity.image"
+        @button-click="handleButtonClick(activity.id_activity)"
       >
+        <!-- Slot title -->
         <template #title>
-          <h2 class="custom-title">Custom Title {{ n }}</h2>
+          <h2 class="custom-title">{{ activity.title }}</h2>
         </template>
-        <template #description>
-          <p class="custom-description">This is a custom description for card {{ n }}.</p>
-        </template>
+        <!-- Hapus slot description agar komponen Card menampilkan deskripsi yang dipendekkan secara default -->
+        <!-- Slot button -->
         <template #button>
           <button class="custom-button">Read More</button>
         </template>
@@ -29,51 +36,69 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import Card from "@/assets/accessory/card.vue";
-import image1 from "@/assets/image/galery1.jpg";
-import image2 from "@/assets/image/galery2.jpg";
-import image3 from "@/assets/image/galery3.jpg";
-import image4 from "@/assets/image/galery4.jpg";
-import image5 from "@/assets/image/galery1.jpg";
-import image6 from "@/assets/image/galery2.jpg";
 
-// Data untuk card
-const days = ["01", "02", "03", "04", "05", "06"];
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-const titles = [
-  "Card Title 1",
-  "Card Title 2",
-  "Card Title 3",
-  "Card Title 4",
-  "Card Title 5",
-  "Card Title 6",
-];
-const descriptions = [
-  "Description for card 1.",
-  "Description for card 2.",
-  "Description for card 3.",
-  "Description for card 4.",
-  "Description for card 5.",
-  "Description for card 6.",
-];
-const headerColors = [
-  "#1e3a8a",
-  "#4a90e2",
-  "#e91e63",
-  "#009688",
-  "#ff5722",
-  "#673ab7",
-];
-const images = [image1, image2, image3, image4, image5, image6];
+// Variabel reaktif
+const activities = ref([]);
+const loading = ref(true);
+const error = ref("");
 
-// Handle button click
-function handleButtonClick(cardNumber) {
-  console.log(`Button clicked on card ${cardNumber}`);
+// Fungsi untuk mengformat tanggal dari API menjadi objek { day, month }
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const day = ("0" + date.getDate()).slice(-2);
+  const month = date.toLocaleString("default", { month: "short" });
+  return { day, month };
 }
 
-// Efek animasi saat scroll menggunakan IntersectionObserver
-onMounted(() => {
+// Fungsi untuk menangani klik tombol pada setiap card
+function handleButtonClick(id_activity) {
+  console.log("Button clicked for activity:", id_activity);
+}
+
+// Fungsi untuk mengambil data aktivitas dari API
+const fetchActivities = async () => {
+  try {
+    const apiUrl = `${import.meta.env.VITE_API_URL}/activities`;
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "x-api-key": `${import.meta.env.VITE_API_KEY}`,
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("API Response:", result);
+
+    if (result.success && result.data && result.data.data) {
+      activities.value = result.data.data;
+      console.log("Aktivitas yang diterima:", activities.value); // Debug log
+    } else {
+      throw new Error(result.message || "Gagal mengambil data");
+    }
+  } catch (err) {
+    error.value = `Gagal mengambil data: ${err.message}`;
+    console.error("Error fetching activities:", err);
+  } finally {
+    loading.value = false;
+  }
+};
+
+onMounted(async () => {
+  await fetchActivities();
+
+  // Pastikan DOM sudah terupdate setelah data diterima
+  await nextTick();
+
+  // Terapkan IntersectionObserver untuk animasi fade-in pada card
   const cards = document.querySelectorAll(".card-item");
   const observer = new IntersectionObserver(
     (entries) => {
@@ -91,16 +116,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Pastikan html dan body memiliki tinggi 100% agar min-height dapat berfungsi dengan baik */
+/* Styling umum */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-/* Container utama diberikan min-height dengan mengurangi tinggi footer (misalnya 100px) */
 .page-container {
-  min-height: calc(100vh - 100px); /* Sesuaikan 100px dengan tinggi footer Anda */
+  min-height: calc(100vh - 100px);
   padding: 25px;
   box-sizing: border-box;
 }
@@ -108,14 +132,14 @@ html, body {
 /* Grid untuk card */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 kolom secara default */
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* Efek fade-in untuk card */
+/* Efek fade-in */
 .card-item {
   opacity: 0;
   transform: translateY(30px);
@@ -127,10 +151,22 @@ html, body {
   transform: translateY(0);
 }
 
+/* Pesan error dan loading */
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.loading-message {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 /* Responsive design untuk tablet */
 @media (max-width: 768px) {
   .card-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 kolom pada tablet */
+    grid-template-columns: repeat(2, 1fr);
   }
   .custom-title {
     font-size: 16px;
@@ -148,7 +184,7 @@ html, body {
 /* Responsive design untuk ponsel */
 @media (max-width: 480px) {
   .card-grid {
-    grid-template-columns: 1fr; /* 1 kolom pada layar kecil */
+    grid-template-columns: 1fr;
     justify-items: center;
   }
   .custom-title {
@@ -164,7 +200,7 @@ html, body {
   }
 }
 
-/* Custom styles untuk slot konten card */
+/* Gaya kustom untuk slot konten card */
 .custom-title {
   font-size: 18px;
   color: #33308e;

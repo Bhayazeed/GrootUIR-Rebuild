@@ -5,7 +5,7 @@ import Activity from '../views/ActivityPage.vue';
 import Projects from '../views/ProjectPage.vue';
 import Teams from '../views/TeamsPage.vue';
 import Login from '../views/Loginpage.vue';
-import Test from '../views/TestingPage.vue';
+import View from '../views/ViewPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,9 +41,9 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: '/test',
-      name: 'Test',
-      component: Test,
+      path: '/view',
+      name: 'View',
+      component: View,
     },
   ],
 })

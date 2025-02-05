@@ -18,7 +18,7 @@
         <h2 class="card-title">{{ title }}</h2>
       </slot>
       <slot name="description">
-        <p class="card-description">{{ description }}</p>
+        <p class="card-description">{{ truncatedDescription }}</p>
       </slot>
     </div>
 
@@ -34,48 +34,57 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { defineProps, defineEmits } from "vue";
 
-defineProps({
+const props = defineProps({
   day: {
     type: String,
-    default: "01", // Default day
+    default: "01",
   },
   month: {
     type: String,
-    default: "Jan", // Default month
+    default: "Jan",
   },
   title: {
     type: String,
-    default: "Default Title", // Default title
+    default: "Default Title",
   },
   description: {
     type: String,
-    default: "Default description goes here.", // Default description
+    default: "Default description goes here.",
   },
   buttonText: {
     type: String,
-    default: "Read More", // Default button text
+    default: "Read More",
   },
   customClass: {
     type: String,
-    default: "", // Custom class for styling
+    default: "",
   },
   headerColor: {
     type: String,
-    default: "#1e3a8a", // Default header background color
+    default: "#1e3a8a",
   },
   image: {
     type: String,
-    default: "", // Optional image for the header
+    default: "",
   },
   showDateBadge: {
     type: Boolean,
-    default: true, // Whether to show the date badge
+    default: true,
   },
 });
 
 const emit = defineEmits(["button-click"]);
+
+// Computed property untuk memendekkan deskripsi
+const truncatedDescription = computed(() => {
+  const maxLength = 50; // Atur jumlah karakter maksimal sesuai kebutuhan
+  return props.description.length > maxLength
+    ? props.description.slice(0, maxLength) + "..."
+    : props.description;
+});
 
 function onButtonClick() {
   emit("button-click");
@@ -83,7 +92,7 @@ function onButtonClick() {
 </script>
 
 <style scoped>
-/* Card Container */
+/* (Style komponen Card tetap sama seperti sebelumnya) */
 .card {
   width: 320px;
   border-radius: 12px;
@@ -94,7 +103,6 @@ function onButtonClick() {
   position: relative;
 }
 
-/* Top Section */
 .card-header {
   height: 190px;
   background-size: cover;
@@ -102,7 +110,6 @@ function onButtonClick() {
   background-repeat: no-repeat;
 }
 
-/* Date Badge */
 .date-badge {
   position: absolute;
   top: 160px;
@@ -131,7 +138,6 @@ function onButtonClick() {
   margin: 0;
 }
 
-/* Card Content */
 .card-content {
   padding: 32px 16px 16px;
   text-align: left;
@@ -141,16 +147,15 @@ function onButtonClick() {
   font-size: 16px;
   font-weight: bold;
   margin: 0 0 8px 0;
-  color: #33308e ;
+  color: #33308e;
 }
 
 .card-description {
   font-size: 14px;
-  color: #1C1C1C;
+  color: #1c1c1c;
   margin: 0;
 }
 
-/* Card Footer (Button Section) */
 .card-footer {
   padding: 16px;
   text-align: center;
