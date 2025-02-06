@@ -17,9 +17,6 @@
       <li><router-link to="/projects">Projects</router-link></li>
       <li><router-link to="/teams">Teams</router-link></li>
     </ul>
-    <router-link to="/login">
-      <button class="login-button">Login</button>
-    </router-link>
   </nav>
 </template>
 
@@ -107,6 +104,7 @@ onUnmounted(() => {
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-right: 50px;
 }
 
 .navbar-links li {
@@ -123,24 +121,7 @@ onUnmounted(() => {
   text-decoration: none;
 }
 
-.login-button {
-  background-color: #f9a61d;
-  color: #fff;
-  border: none;
-  width: 55px;
-  height: 35px;
-  font-weight: normal;
-  cursor: pointer;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 7px;
-}
 
-.login-button:hover {
-  background-color: #f9a61d;
-}
 
 /* Hamburger Menu */
 .hamburger {

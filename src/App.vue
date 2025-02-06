@@ -1,18 +1,33 @@
 <template>
   <div id="app">
-    <Navbar />
+    <component v-if="!hideNavbar" :is="currentNavbar" />
+    
     <main>
       <router-view />
     </main>
-    <Footer />
+    
+    <Footer v-if="!hideNavbar && !isAdminRoute" />
   </div>
 </template>
 
 <script setup>
-import Navbar from './assets/accessory/navbar.vue';
-import Footer from './assets/accessory/footer.vue';
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import PublicNavbar from './assets/accessory/PublicNavbar.vue'
+import AdminNavbar from './assets/accessory/AdminNavbar.vue'
+import Footer from './assets/accessory/footer.vue'
 
+const route = useRoute()
+
+const isAdminRoute = computed(() => route.path.startsWith('/admin'))
+
+const hideNavbar = computed(() => {
+  return route.name === 'Login'
+})
+
+const currentNavbar = computed(() => (isAdminRoute.value ? AdminNavbar : PublicNavbar))
 </script>
+
 
 <style>
 body {

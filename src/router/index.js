@@ -7,6 +7,9 @@ import Teams from '../views/TeamsPage.vue';
 import Login from '../views/Loginpage.vue';
 import View from '../views/ViewPage.vue';
 
+import AdminAC from '@/views/AdminAC.vue';
+import AdminPJ from '@/views/AdminPJ.vue';
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -44,6 +47,16 @@ const router = createRouter({
       path: '/view/:id',
       name: 'View',
       component: View,
+    },
+    {
+      path: '/adminAC',
+      name: 'AdminAC',
+      component: AdminAC,
+    },
+    {
+      path: '/adminPJ',
+      name: 'AdminPJ',
+      component: AdminPJ,
     },
   ],
 })

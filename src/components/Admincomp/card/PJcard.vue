@@ -1,7 +1,4 @@
 <template>
-  <div class="project-header">
-    <h1 class="project-title">Project</h1>
-  </div>
   <div class="page-container">
     <div class="project-container">
       <Projectcard
@@ -14,20 +11,13 @@
         :tag="project.tag"
       />
     </div>
-    <div class="right">
-      <div class="tag-container">
-        <Tag :titles="tagTitle" @tagSelected="filterProjects" />
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import Projectcard from "../../assets/accessory/projectcard.vue";
-import Tag from "../../assets/accessory/tags.vue";
+import Projectcard from "../../../assets/accessory/projectcardAD.vue";
 
-const tagTitle = ["ROBOTICS", "IOT", "AI", "AUTOMATION"];
 const projects = ref([]); // Array kosong untuk menampung data API
 const selectedTag = ref(null);
 const loading = ref(true);
@@ -39,10 +29,6 @@ const filteredProjects = computed(() => {
   return projects.value.filter((project) => project.tag === selectedTag.value);
 });
 
-// Method untuk mengatur tag yang dipilih
-const filterProjects = (tag) => {
-  selectedTag.value = tag;
-};
 
 // Fetch data dari API
 const fetchProject = async () => {
@@ -89,77 +75,67 @@ onMounted(() => {
   fetchProject();
 });
 </script>
-
-<style scoped>
-.project-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #f9a61d;
-  text-align: center;
-  margin: 20px auto 40px;
-  background-color: #33308e;
-  padding: 10px;
-  line-height: 1.2;
-  width: fit-content;
-}
-
-.page-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  width: 100%;
-}
-
-.project-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  min-width: 500px;
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 300px;
-}
-
-.tag-container {
-  width: 100%;
-}
-
-/* Responsif untuk tablet */
-@media (max-width: 1024px) {
+  
+  <style scoped>
+  
   .page-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .project-container {
-    min-width: auto;
-    justify-content: center;
-  }
-
-  .right {
-    max-width: 100%;
-    text-align: center;
-  }
-}
-
-/* Responsif untuk mobile */
-@media (max-width: 768px) {
-  .tag-container {
-    display: none;
-  }
-
-  .project-container {
-    flex-direction: column;
-    gap: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
     width: 100%;
   }
-
-  .right {
-    margin-left: 0;
+  
+  .project-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    min-width: 500px;
   }
-}
-</style>
+  
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 300px;
+  }
+  
+  .tag-container {
+    width: 100%;
+  }
+  
+  /* Responsif untuk tablet */
+  @media (max-width: 1024px) {
+    .page-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .project-container {
+      min-width: auto;
+      justify-content: center;
+    }
+  
+    .right {
+      max-width: 100%;
+      text-align: center;
+    }
+  }
+  
+  /* Responsif untuk mobile */
+  @media (max-width: 768px) {
+    .tag-container {
+      display: none;
+    }
+  
+    .project-container {
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+    }
+  
+    .right {
+      margin-left: 0;
+    }
+  }
+  </style>
+  
