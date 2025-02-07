@@ -33,3 +33,9 @@ npm run build
 ```sh
 npm run test:unit
 ```
+### .env file 
+
+```sh
+VITE_API_URL=
+VITE_API_KEY=
+```
