@@ -18,9 +18,8 @@
   </div>
 </template>
 
-
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, ref, defineEmits } from "vue";
 
 // Mendefinisikan props
 defineProps({
@@ -41,17 +40,17 @@ defineProps({
   },
 });
 
+// Mendefinisikan emit untuk mengirim event ke komponen induk
+const emit = defineEmits(["click"]);
+
 const placeholderImage = "https://via.placeholder.com/60"; // Gambar cadangan
 
-// Variabel untuk menyimpan URL yang dipilih
-const selectedPostUrl = ref("");
-
-// Fungsi untuk menyimpan URL ketika postingan diklik
+// Fungsi untuk memancarkan URL ketika postingan diklik
 const savePostUrl = (url) => {
-  selectedPostUrl.value = url;
-  console.log("Post URL saved:", selectedPostUrl.value);
+  emit("click", url);
 };
 </script>
+
 <style scoped>
 .recent-post {
   width: 100%;
@@ -64,14 +63,14 @@ const savePostUrl = (url) => {
   align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ff9900; /* Orange color */
+  color: #ff9900;
   margin-bottom: 20px;
 }
 
 .title-bar {
   width: 5px;
   height: 30px;
-  background-color: #33308e; /* Dark purple */
+  background-color: #33308e;
   margin-right: 10px;
 }
 
@@ -88,31 +87,30 @@ const savePostUrl = (url) => {
 .post-content {
   display: flex;
   align-items: center;
-  cursor: pointer; /* Add cursor pointer to indicate clickable items */
+  cursor: pointer;
 }
 
 .post-image {
   width: 60px;
   height: 60px;
-  background-color: #d3d3d3; /* Light gray placeholder for image */
+  background-color: #d3d3d3;
   background-size: cover;
   background-position: center;
   margin-right: 15px;
-  flex-shrink: 0; /* Ensure the image does not resize */
-  border-radius: 8px; /* Optional: Add rounded corners */
+  flex-shrink: 0;
+  border-radius: 8px;
 }
 
 .post-title {
   font-size: 1rem;
   font-weight: bold;
-  color: #33308e; /* Dark purple */
+  color: #33308e;
   margin: 0;
 }
 
 .divider {
   height: 1px;
-  background-color: #d3d3d3; /* Light gray line */
+  background-color: #d3d3d3;
   margin: 15px 0;
 }
 </style>
-

@@ -9,6 +9,8 @@ import View from '../views/ViewPage.vue';
 
 import AdminAC from '@/views/AdminAC.vue';
 import AdminPJ from '@/views/AdminPJ.vue';
+import AdminEditPJ from '@/views/AdminEditPJ.vue';
+import AdminEditAC from '@/views/AdminEditAC.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +59,16 @@ const router = createRouter({
       path: '/adminPJ',
       name: 'AdminPJ',
       component: AdminPJ,
+    },
+    {
+      path: '/adminEditPJ/:id',
+      name: 'AdminEditPJ',
+      component: AdminEditPJ,
+    },
+    {
+      path: '/adminEditAC/:id',
+      name: 'AdminEditAC',
+      component: AdminEditAC,
     },
   ],
 })

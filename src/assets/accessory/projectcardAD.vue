@@ -8,18 +8,31 @@
       <p class="project-description">
         {{ isExpanded ? fullDescription : description }}
       </p>
-      <button class="read-more-button" @click="toggleExpand">
-        {{ isExpanded ? "Show Less" : "Read More" }}
-      </button>
-      <!-- Display the tag if it's provided -->
-      <div v-if="tag" class="project-tag">{{ tag }}</div>
+
+      <div class="button-layout">
+        <div class="button-left-layout">
+          <button class="read-more-button" @click="toggleExpand">
+            {{ isExpanded ? "Show Less" : "Read More" }}
+          </button>
+          <div v-if="tag" class="project-tag">{{ tag }}</div>
+        </div>
+        
+        <div class="button-right-layout">
+          <slot name="delete">
+            <button v-if="buttonDel" class="del-button" @click="delfuncion">{{ buttonDel }}</button>
+          </slot>
+          <slot name="edit">
+            <button v-if="buttonEdit" class="edit-button" @click="editfuncion">{{ buttonEdit }}</button>
+          </slot>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { defineProps } from "vue";
+import { defineProps , defineEmits} from "vue";
 
 defineProps({
   image: {
@@ -42,12 +55,27 @@ defineProps({
     type: String,
     required: false, // Tag is optional
   },
+  buttonDel: {
+    type: String,
+    default: "Delete",
+  },
+  buttonEdit: {
+    type: String,
+    default: "Edit",
+  },
 });
 
 const isExpanded = ref(false);
+const emit = defineEmits(["button-click"]);
 
 function toggleExpand() {
   isExpanded.value = !isExpanded.value;
+}
+function delfuncion() {
+  emit("button-click");
+}
+function editfuncion() {
+  emit("button-click");
 }
 </script>
 
@@ -130,6 +158,59 @@ function toggleExpand() {
   align-self: flex-start;
 }
 
+.del-button{
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #33308e;
+  background-color: transparent;
+  border: 1px solid red;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  align-self: flex-start;
+}
+
+.del-button:hover {
+  background-color: red;
+  color: white;
+}
+
+.edit-button{
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #33308e;
+  background-color: transparent;
+  border: 1px solid green;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  align-self: flex-start;
+  margin-left: 15px;
+}
+
+.edit-button:hover {
+  background-color: green;
+  color: white;
+}
+
+.button-right-layout{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.button-left-layout{
+  display: flex;
+  flex-direction: column;
+}
+
+.button-layout{
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
 /* Responsive Styles */
 
 /* For smaller screens (tablets and mobile) */

@@ -23,6 +23,7 @@ import defaultImage from "../assets/image/galery1.jpg";
 
 const route = useRoute();
 const id = route.params.id;
+console.log("ID yang digunakan:", id);
 
 
 onMounted(() => {

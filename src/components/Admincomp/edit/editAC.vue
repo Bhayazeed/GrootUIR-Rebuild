@@ -1,7 +1,7 @@
 <template>
   <div class="admin-page">
     <div class="admin-container">
-      <h1>Post Activity</h1>
+      <h1>Edit Activity</h1>
       <form @submit.prevent="submitForm">
         <div class="form-group">
           <label>Upload Gambar</label>
@@ -31,13 +31,21 @@
         <button type="submit" :disabled="isSubmitting">
           {{ isSubmitting ? "Mengirim..." : "📝 Simpan" }}
         </button>
+        <button type="button" @click="back">
+          Batal
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+const id = route.params.id;
 
 const formData = ref({
   image: null,
@@ -63,38 +71,60 @@ const handleFileUpload = (event) => {
   formData.value.image = file;
 };
 
-const validateForm = () => {
-  if (
-    !formData.value.title.trim() ||
-    !formData.value.description.trim() ||
-    !formData.value.category.trim() ||
-    !formData.value.created_by.trim()
-  ) {
-    alert("Semua field wajib diisi!");
-    return false;
+const fetchActivity = async () => {
+  try {
+    const apiUrl = `${import.meta.env.VITE_API_URL}/activities/${id}`;
+    
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "x-api-key": `${import.meta.env.VITE_API_KEY}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    formData.value = { ...result.data, image: null };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    alert("Gagal memuat data.");
   }
-  return true;
 };
 
 const submitForm = async () => {
-  if (!validateForm()) return;
   isSubmitting.value = true;
 
   try {
-    const apiUrl = `${import.meta.env.VITE_API_URL}/admin/activities`;
+    const apiUrl = `${import.meta.env.VITE_API_URL}/admin/activities/${id}`;
     const formDataToSend = new FormData();
 
-    formDataToSend.append("image", formData.value.image);
-    formDataToSend.append("title", formData.value.title);
-    formDataToSend.append("description", formData.value.description);
-    formDataToSend.append("category", formData.value.category);
-    formDataToSend.append("created_by", formData.value.created_by);
+    // Hanya tambahkan data yang tidak kosong
+    if (formData.value.image) {
+      formDataToSend.append("image", formData.value.image);
+    }
+    if (formData.value.title.trim()) {
+      formDataToSend.append("title", formData.value.title);
+    }
+    if (formData.value.description.trim()) {
+      formDataToSend.append("description", formData.value.description);
+    }
+    if (formData.value.category.trim()) {
+      formDataToSend.append("category", formData.value.category);
+    }
+    if (formData.value.created_by.trim()) {
+      formDataToSend.append("created_by", formData.value.created_by);
+    }
+    formDataToSend.append("_method", "PUT");
 
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         "x-api-key": `${import.meta.env.VITE_API_KEY}`,
-        "Authorization": `Bearer ${token}`, // Gunakan Bearer jika API memerlukannya
+        "Authorization": `Bearer ${token}`,
         "Accept": "application/json",
       },
       body: formDataToSend,
@@ -106,10 +136,11 @@ const submitForm = async () => {
 
     const result = await response.json();
     if (result.success) {
-      console.log("Data berhasil disimpan:", result.message);
-      alert("Post berhasil dibuat!");
+      console.log("Data berhasil diperbarui:", result.message);
+      alert("Data berhasil diperbarui!");
+      router.push({ name: 'AdminAC' });
     } else {
-      alert(result.message || "Gagal menyimpan data.");
+      alert(result.message || "Gagal memperbarui data.");
     }
   } catch (error) {
     console.error("Terjadi kesalahan:", error.message);
@@ -118,7 +149,17 @@ const submitForm = async () => {
     isSubmitting.value = false;
   }
 };
+
+onMounted(() => {
+  fetchActivity(); 
+});
+
+function back() {
+  router.push({ name: 'AdminAC' });
+}
 </script>
+
+
 
 <style scoped>
 .admin-page {
@@ -169,6 +210,7 @@ button {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-top: 10px;
 }
 button:hover {
   background: #d88b18;

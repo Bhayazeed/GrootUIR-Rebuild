@@ -29,6 +29,12 @@
         <template #button>
           <button class="custom-button" @click="handleButtonClick(activity.id_activity)">Read More</button>
         </template>
+        <template #delete>
+          <button class="del-button" @click="delActivity(activity.id_activity)">Delete</button>
+        </template>
+        <template #edit>
+          <button class="edit-button" @click="editProject(activity.id_activity)">Edit</button>
+        </template>
       </Card>
 
     </div>
@@ -42,6 +48,7 @@ import Card from "@/assets/accessory/cardAD.vue";
 import defaultImage from "../../../assets/image/galery1.jpg";
 
 // Variabel reaktif
+const token = localStorage.getItem("authToken");
 const router = useRouter();
 const activities = ref([]);
 const loading = ref(true);
@@ -58,6 +65,10 @@ function formatDate(dateStr) {
 
 function handleButtonClick(id_activity) {
   router.push({ name: 'View', params: { id: id_activity } });
+}
+
+function editProject(id_activity) {
+  router.push({ name: 'AdminEditAC', params: { id: id_activity } });
 }
 
 // Fungsi untuk mengambil data aktivitas dari API
@@ -92,6 +103,42 @@ const fetchActivities = async () => {
     loading.value = false;
   }
 };
+
+const delActivity = async (id_activity) => {
+  loading.value = true; // Mulai loading
+
+  try {
+    const apiUrl = `${import.meta.env.VITE_API_URL}/admin/activities/${id_activity}`;
+
+    const response = await fetch(apiUrl, {
+      method: "DELETE",
+      headers: {
+        "x-api-key": import.meta.env.VITE_API_KEY,
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorMsg = await response.text();
+      throw new Error(`HTTP error! Status: ${response.status} - ${errorMsg}`);
+    }
+
+    // Hapus data dari array activities
+    activities.value = activities.value.filter(
+      (activity) => activity.id_activity !== id_activity
+    );
+
+    // Notifikasi keberhasilan
+    console.log(`Activity with ID ${id_activity} deleted successfully.`);
+  } catch (err) {
+    error.value = `Gagal menghapus aktivitas: ${err.message}`;
+    console.error("Error deleting activity:", err);
+  } finally {
+    loading.value = false; // Selesai loading
+  }
+};
+
 
 onMounted(async () => {
   await fetchActivities();
@@ -176,7 +223,6 @@ onMounted(async () => {
     .custom-button {
         font-size: 14px;
         padding: 10px 14px;
-        margin-top: 0px;
     }
     }
 
@@ -220,13 +266,50 @@ onMounted(async () => {
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    display: block;
-    margin-top: 10px;
     width: fit-content;
+    margin-right: 20px;
     }
 
     .custom-button:hover {
     background-color: #f9a61d;
+    color: #ffffff;
+    }
+
+    .del-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #33308e;
+    background-color: transparent;
+    border: 1px solid red;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: fit-content;
+    margin-right: 20px;
+    }
+
+    .del-button:hover {
+    background-color: red;
+    color: #ffffff;
+    }
+
+    .edit-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #33308e;
+    background-color: transparent;
+    border: 1px solid green;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: fit-content;
+    margin-right: 20px;
+    }
+
+    .edit-button:hover {
+    background-color: green;
     color: #ffffff;
     }
  </style>

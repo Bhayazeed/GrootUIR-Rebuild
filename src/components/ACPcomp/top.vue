@@ -27,6 +27,7 @@
             v-if="recentPosts.length"
             :titles="recentPosts.map(post => post.title)"
             :images="recentPosts.map(post => post.image || defaultImage)"
+            :postUrls="recentPosts.map(post => post.id_activity)"
             @click="goToViewPage"
           />
         </div>
@@ -43,16 +44,16 @@ import recentpost from "../../assets/accessory/recentpost.vue";
 import searchbar from "../../assets/accessory/searchbar.vue";
 import defaultImage from "../../assets/image/galery1.jpg";
 
-// Reaktif variabel untuk data
+// Variabel reaktif untuk data
 const activities = ref([]);
 const latestPost = ref(null);
 const recentPosts = ref([]);
 
 const router = useRouter();
 
-// Fungsi untuk menangani klik dan mengarahkan ke halaman view dengan ID aktivitas
-function goToViewPage(post) {
-  router.push({ name: 'View', params: { id: post.id_activity } });
+// Fungsi untuk menangani klik dan mengarahkan ke halaman view berdasarkan id_activity
+function goToViewPage(id_activity) {
+  router.push({ name: "View", params: { id: id_activity } });
 }
 
 async function fetchActivities() {
@@ -70,10 +71,10 @@ async function fetchActivities() {
     if (result.success && result.data && result.data.data) {
       const allActivities = result.data.data;
 
-      // Ambil data terbaru pertama untuk `maincard`
+      // Ambil data terbaru pertama untuk maincard
       latestPost.value = allActivities[0];
 
-      // Sisanya untuk `recentpost`
+      // Sisanya untuk recentpost
       recentPosts.value = allActivities.slice(1);
     }
   } catch (err) {
@@ -94,8 +95,6 @@ onMounted(() => {
   fetchActivities();
 });
 </script>
-
-
 
 <style scoped>
 .activity-title {
@@ -160,7 +159,7 @@ onMounted(() => {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .activity-title {
-    font-size: 24px; /* Adjust the font size for the title */
+    font-size: 24px;
     padding: 8px;
   }
   
@@ -170,7 +169,7 @@ onMounted(() => {
   }
 
   .container {
-    flex-direction: column; /* Stack the left and right sections */
+    flex-direction: column;
     align-items: center;
   }
 
@@ -186,17 +185,16 @@ onMounted(() => {
   }
 
   .searchbar-container {
-    margin-bottom: 20px; /* Add space between searchbar and recent posts */
+    margin-bottom: 20px;
   }
 
-  /* Resize the main card and adjust for mobile */
   .maincard-class {
     max-width: 100%;
     margin: 0 auto;
   }
 }
 
-/* Additional styling for the recent posts and searchbar on smaller screens */
+/* Additional styling for smaller screens */
 @media (max-width: 480px) {
   .searchbar-container {
     margin-bottom: 10px;
@@ -207,7 +205,7 @@ onMounted(() => {
   }
 
   .activity-title {
-    font-size: 22px; /* Further reduce title size on very small screens */
+    font-size: 22px;
   }
 }
 </style>

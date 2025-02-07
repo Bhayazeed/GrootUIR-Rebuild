@@ -14,23 +14,29 @@
 
     <div class="card-body">
       <!-- Title and Description -->
-    <div class="card-content">
-      <slot name="title">
-        <h2 class="card-title">{{ title }}</h2>
-      </slot>
-      <slot name="description">
-        <p class="card-description">{{ truncatedDescription }}</p>
-      </slot>
-    </div>
+      <div class="card-content">
+        <slot name="title">
+          <h2 class="card-title">{{ title }}</h2>
+        </slot>
+        <slot name="description">
+          <p class="card-description">{{ truncatedDescription }}</p>
+        </slot>
+      </div>
 
-    <!-- Read More Button -->
-    <div class="card-footer">
-      <slot name="button">
-        <button v-if="buttonText" class="read-more-btn" @click="onButtonClick">
-          {{ buttonText }}
-        </button>
-      </slot>
-    </div>
+      <!-- Read More Button -->
+      <div class="card-footer">
+        <slot name="button">
+          <button v-if="buttonText" class="read-more-btn" @click="onButtonClick">
+            {{ buttonText }}
+          </button>
+        </slot>
+        <slot name="delete">
+          <button v-if="buttonDel" class="del-button" @click="delfuncion">{{ buttonDel }}</button>
+        </slot>
+        <slot name="edit">
+          <button v-if="buttonEdit" class="edit-button" @click="editfuncion">{{ buttonEdit }}</button>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -76,6 +82,14 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  buttonDel: {
+    type: String,
+    default: "Delete",
+  },
+  buttonEdit: {
+    type: String,
+    default: "Edit",
+  },
 });
 
 const emit = defineEmits(["button-click"]);
@@ -89,6 +103,13 @@ const truncatedDescription = computed(() => {
 });
 
 function onButtonClick() {
+  emit("button-click");
+}
+
+function delfuncion() {
+  emit("button-click");
+}
+function editfuncion() {
   emit("button-click");
 }
 </script>
@@ -170,7 +191,8 @@ function onButtonClick() {
 
 .card-footer {
   margin-top: auto;
-  text-align: center;
+  text-align: left;
+  flex-direction: row;
 }
 
 .read-more-btn {
@@ -187,5 +209,37 @@ function onButtonClick() {
 .read-more-btn:hover {
   background-color: #f9a61d;
   color: #ffffff;
+}
+
+.del-button{
+  font-size: 50px;
+  font-weight: bold;
+  color: #33308e;
+  background-color: transparent;
+  border: 1px solid red;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.del-button:hover {
+  background-color: red;
+  color: white;
+}
+
+.edit-button{
+  font-size: 50px;
+  font-weight: bold;
+  color: #33308e;
+  background-color: transparent;
+  border: 1px solid green;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.edit-button:hover {
+  background-color: green;
+  color: white;
 }
 </style>

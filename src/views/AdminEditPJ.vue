@@ -1,20 +1,18 @@
 <template>
     <div class="container">
-      <post />
-      <PJcard />
+      <editPJ />
     </div>
   </template>
   
   <script setup>
-  import post from "@/components/Admincomp/Post/postPJ.vue";
-  import PJcard from "@/components/Admincomp/card/PJcard.vue";
+  import editPJ from '@/components/Admincomp/edit/editPJ.vue';
   </script>
   
   <style scoped>
   .container {
     display: flex;
-    flex-direction: row;
-    gap: 5rem; 
+    flex-direction: column;
+    gap: 1rem; 
     justify-content: space-between; 
     align-items: center; 
     padding: 1rem;
