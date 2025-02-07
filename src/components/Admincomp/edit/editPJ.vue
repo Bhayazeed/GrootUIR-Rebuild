@@ -12,7 +12,7 @@
           <label>Title</label>
           <input 
             type="text" 
-            v-model="formData.title" 
+            v-model="projectForm.title" 
             placeholder="Masukkan title (opsional)..." 
           />
         </div>
@@ -21,14 +21,14 @@
           <label>Deskripsi</label>
           <input 
             type="text" 
-            v-model="formData.description" 
+            v-model="projectForm.description" 
             placeholder="Masukkan deskripsi (opsional)..." 
           />
         </div>
 
         <div class="form-group">
           <label>Pilih Tags:</label>
-          <select id="tags" name="tags" v-model="formData.tags">
+          <select id="tags" name="tags" v-model="projectForm.tags">
             <option value="" disabled>Pilih Tags (opsional)</option>
             <option value="AI">AI</option>
             <option value="IOT">IOT</option>
@@ -49,24 +49,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter, useRoute } from "vue-router";
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
-const token = localStorage.getItem("authToken");
+const token = localStorage.getItem('authToken');
 const isSubmitting = ref(false);
 const router = useRouter();
 const route = useRoute();
 
-const id_project = route.params.id;
-console.log("ID yang digunakan:", id_project);
+// Ambil ID proyek dari parameter route
+const projectId = route.params.id;
+console.log('ID yang digunakan:', projectId);
 
-const formData = ref({
+// Reactive object untuk menyimpan data form
+const projectForm = ref({
   image: null,
   title: '',
   description: '',
   tags: '',
 });
 
+// Fungsi untuk menangani upload file
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -77,57 +80,81 @@ const handleFileUpload = (event) => {
     return;
   }
 
-  formData.value.image = file;
+  projectForm.value.image = file;
 };
 
+// Fungsi untuk mengambil data proyek yang akan diedit
+onMounted(async () => {
+  try {
+    const apiUrl = `${import.meta.env.VITE_API_URL}/projects/${projectId}`;
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "x-api-key": `${import.meta.env.VITE_API_KEY}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    projectForm.value = { ...result.data, image: null };
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    alert("Gagal memuat data.");
+  }
+});
+
+// Fungsi untuk mengirim data edit ke server
 const editProject = async () => {
   isSubmitting.value = true;
 
   try {
-    const apiUrl = `${import.meta.env.VITE_API_URL}/admin/projects/${id_project}`;
-    const formDataToSend = new FormData();
+    const apiUrl = `${import.meta.env.VITE_API_URL}/admin/projects/${projectId}`;
+    const payload = new FormData();
 
-    // Hanya tambahkan field yang memiliki nilai
-    if (formData.value.image) {
-      formDataToSend.append('image', formData.value.image);
+    // Hanya tambahkan field jika ada nilai
+    if (projectForm.value.image) {
+      payload.append('image', projectForm.value.image);
     }
-    if (formData.value.title) {
-      formDataToSend.append('title', formData.value.title);
+    if (projectForm.value.title) {
+      payload.append('title', projectForm.value.title);
     }
-    if (formData.value.description) {
-      formDataToSend.append('description', formData.value.description);
+    if (projectForm.value.description) {
+      payload.append('description', projectForm.value.description);
     }
-    if (formData.value.tags) {
-      formDataToSend.append('tags', formData.value.tags);
+    if (projectForm.value.tags) {
+      payload.append('tags', projectForm.value.tags);
     }
 
-    // Tambahkan `_method: PUT` seperti pada Postman
-    formDataToSend.append('_method', 'PUT');
+    // Tambahkan _method: PUT untuk melakukan override method (jika API menggunakan teknik ini)
+    payload.append('_method', 'PUT');
 
     const response = await fetch(apiUrl, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "x-api-key": `${import.meta.env.VITE_API_KEY}`,
-        "Authorization": `${token}`,
-        "Accept": "application/json",
-        // Jangan set Content-Type untuk FormData, biarkan browser menentukannya
+        'x-api-key': import.meta.env.VITE_API_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
       },
-      body: formDataToSend,
+      body: payload,
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Terjadi kesalahan pada server.");
+      throw new Error(errorData.message || 'Terjadi kesalahan pada server.');
     }
 
     const result = await response.json();
-    alert("Proyek berhasil diperbarui: " + result.message);
+    alert('Proyek berhasil diperbarui: ' + result.message);
 
     // Redirect ke halaman daftar proyek
     router.push({ name: 'AdminPJ' });
   } catch (error) {
-    console.error("Terjadi kesalahan:", error.message);
-    alert("Error: " + error.message);
+    console.error('Terjadi kesalahan:', error.message);
+    alert('Error: ' + error.message);
   } finally {
     isSubmitting.value = false;
   }
@@ -137,7 +164,6 @@ function back() {
   router.push({ name: 'AdminPJ' });
 }
 </script>
-
 
 <style scoped>
 .admin-page {
