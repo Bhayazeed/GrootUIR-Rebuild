@@ -52,11 +52,14 @@ onUnmounted(() => {
 
 <style scoped>
 .footer {
+  position: relative; /* Agar elemen footer tetap berada dalam alur halaman */
+  left: 0; /* Pastikan elemen mulai dari sisi kiri */
+  right: 0; /* Pastikan elemen berakhir di sisi kanan */
+  width: 100vw; /* Lebar penuh termasuk margin dan padding browser */
   background-color: #33308e;
   color: #ffffff;
   padding: 2rem 1rem;
   text-align: center;
-  width: 100%;
 }
 
 .footer-container {
