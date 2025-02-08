@@ -41,8 +41,8 @@ const router = createRouter({
       component: Teams,
     },
     {
-      path: '/login',
-      name: 'Login',
+      path: '/masok',
+      name: 'Masok',
       component: Login,
     },
     {

@@ -22,7 +22,7 @@ const route = useRoute()
 const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 
 const hideNavbar = computed(() => {
-  return route.name === 'Login'
+  return route.name === 'Masok'
 })
 
 const currentNavbar = computed(() => (isAdminRoute.value ? AdminNavbar : PublicNavbar))
