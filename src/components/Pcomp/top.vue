@@ -28,7 +28,7 @@ import Projectcard from "../../assets/accessory/projectcard.vue";
 import Tag from "../../assets/accessory/tags.vue";
 
 const tagTitle = ["ROBOTICS", "IOT", "AI", "AUTOMATION"];
-const projects = ref([]); // Array kosong untuk menampung data API
+const projects = ref([]);
 const selectedTag = ref(null);
 const loading = ref(true);
 const error = ref(null);
@@ -52,7 +52,7 @@ const fetchProject = async () => {
       method: "GET",
       headers: {
         "x-api-key": `${import.meta.env.VITE_API_KEY}`,
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
     });

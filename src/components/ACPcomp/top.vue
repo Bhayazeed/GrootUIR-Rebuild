@@ -74,13 +74,14 @@ async function fetchActivities() {
       // Ambil data terbaru pertama untuk maincard
       latestPost.value = allActivities[0];
 
-      // Sisanya untuk recentpost
-      recentPosts.value = allActivities.slice(1);
+      // Sisanya untuk recentpost, dibatasi 4 baris data
+      recentPosts.value = allActivities.slice(1, 5);
     }
   } catch (err) {
     console.error("Error fetching activities:", err);
   }
 }
+
 
 // Fungsi format tanggal
 function formatDate(dateStr) {
