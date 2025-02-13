@@ -22,9 +22,9 @@
 </template>
 
 <script setup>
-import image1 from '../../assets/image/galery1.jpg'
-import image2 from '../../assets/image/galery2.jpg'
-import image3 from '../../assets/image/galery3.jpg'
+import image1 from '../../assets/image/IMG-20231019-WA0004.jpg'
+import image2 from '../../assets/image/IMG-20230816-WA0032.jpg'
+import image3 from '../../assets/image/IMG-20240521-WA0034.jpg'
 import image4 from '../../assets/image/galery4.jpg'
 import ReadMore from '../../assets/accessory/btnread.vue';
 
@@ -52,12 +52,12 @@ const newsArticles = [
 {
   title: "AI in Robotics: The Future",
   description: "AI is transforming the world of robotics. Learn how GROOT is integrating AI to enhance robotic automation systems.",
-  image: image1 // Replace with your image path
+  image: image3 // Replace with your image path
 },
 {
   title: "GROOT Community Expands",
   description: "The GROOT community at UIR is expanding its outreach to other universities and research groups, collaborating on cutting-edge robotics projects.",
-  image: image1 // Replace with your image path
+  image: image2 // Replace with your image path
 }
 ];
 </script>

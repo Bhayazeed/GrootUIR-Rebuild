@@ -29,11 +29,18 @@
         <p class="card-description">{{ description }}</p>
       </slot>
     </div>
+    <button @click="goBack">Back</button>
   </div>
 </template>
 
 <script setup>
 import { defineProps } from "vue";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const goBack = () => {
+  router.back();
+};
 
 defineProps({
   image: {

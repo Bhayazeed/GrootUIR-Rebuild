@@ -32,7 +32,7 @@
 
 <script setup>
 import profilcard from '@/assets/accessory/profilcard.vue';
-import aku from '@/assets/image/profil.jpg';
+import aku from '@/assets/image/profilkeren/fadhlur.png';
 </script>
 
 <style scoped>

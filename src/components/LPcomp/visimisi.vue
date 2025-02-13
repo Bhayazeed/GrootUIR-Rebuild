@@ -58,10 +58,10 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
-  import image1 from '../../assets/image/galery1.jpg';
-  import image2 from '../../assets/image/galery2.jpg';
+  import image1 from '../../assets/image/IMG-20231019-WA0006.jpg';
+  import image2 from '../../assets/image/slider2.jpg';
   import image3 from '../../assets/image/galery3.jpg';
-  import image4 from '../../assets/image/galery4.jpg';
+  import image4 from '../../assets/image/IMG-20230815-WA0052.jpg';
   
   const images = [image1, image2, image3, image4];
   const currentImage = ref(0);

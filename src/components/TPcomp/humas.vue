@@ -60,9 +60,6 @@
       <div class="footer-logo-section">
         <img src="../../components/icons/icon.png" alt="Community Logo" class="footer-logo" />
       </div>
-      <div class="motivational-words-section">
-        <p class="motivational-words">"As we look to the future, GROOT remains committed to growth and excellence. We are more than a community; we are a family united by a shared mission to inspire, innovate, and lead in the fields of robotics, networking, and automation. With unwavering determination, we will continue to rise, proving that our best is yet to come."</p>
-      </div>
     </div>
   </div>
 </template>
