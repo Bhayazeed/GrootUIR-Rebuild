@@ -55,9 +55,9 @@ const isSubmitting = ref(false);
 
 const formData = ref({
   image: null,
-  title: '',
-  description: '',
-  tags: '',
+  title: "",
+  description: "",
+  tags: "",
 });
 
 const handleFileUpload = (event) => {
@@ -103,7 +103,7 @@ const submitForm = async () => {
       headers: {
         "x-api-key": `${import.meta.env.VITE_API_KEY}`,
         "Authorization": `Bearer ${token}`,
-        'Accept': 'application/json',
+        "Accept": "application/json",
       },
       body: formDataToSend,
     });
