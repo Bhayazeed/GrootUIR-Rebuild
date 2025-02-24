@@ -3,7 +3,7 @@
     <div class="profile-container">
       <!-- Leader Profile Section -->
       <profilcard
-        :image="aku"
+        :image="fadhlur"
         name="Fadhlur Rohman"
         title="Software Engineer"
         position="Leader"
@@ -21,7 +21,7 @@
       <!-- Treasurer and Secretary Profiles -->
       <div class="admin-row">
         <profilcard
-          :image="aku"
+          :image="cici"
           name="Cici"
           title="Software Engineer"
           position="Treasurer"
@@ -31,7 +31,7 @@
           }"
         />
         <profilcard
-          :image="aku"
+          :image="vania"
           name="Vania"
           title="Software Engineer"
           position="Secretary"
@@ -47,7 +47,9 @@
 
 <script setup>
 import profilcard from '@/assets/accessory/profilcard.vue';
-import aku from '@/assets/image/profil.jpg';
+import fadhlur from '@/assets/image/profilkeren/fadhlur.png';
+import cici from '@/assets/image/profilkeren/cici.png';
+import vania from '@/assets/image/profilkeren/vania.png';
 </script>
 
 <style scoped>

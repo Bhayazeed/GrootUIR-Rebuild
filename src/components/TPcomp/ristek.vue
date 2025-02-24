@@ -9,8 +9,8 @@
       <!-- Coordinator Profile Section -->
       <div class="coordinator">
         <profilcard
-          :image="aku"
-          name="Yazid"
+          :image="bhayazid"
+          name="M. Bhayazid Amalin"
           title="Software Engineer"
           position="Coordinator"
           :socialLinks="{
@@ -23,7 +23,7 @@
       <!-- Staff Profiles Section -->
       <div class="staff">
         <profilcard
-          :image="aku"
+          :image="wagi"
           name="Wagi"
           title="Software Engineer"
           position="Staff"
@@ -33,7 +33,7 @@
           }"
         />
         <profilcard
-          :image="aku"
+          :image="dani"
           name="Dani"
           title="Software Engineer"
           position="Staff"
@@ -49,7 +49,9 @@
 
 <script setup>
 import profilcard from '@/assets/accessory/profilcard.vue';
-import aku from '@/assets/image/profil.jpg';
+import bhayazid from '@/assets/image/profilkeren/bhayazid.png';
+import wagi from '@/assets/image/profilkeren/wagi.png';
+import dani from '@/assets/image/profilkeren/dani.png';
 </script>
 
 <style scoped>

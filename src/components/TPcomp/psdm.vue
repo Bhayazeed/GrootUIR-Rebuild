@@ -9,7 +9,7 @@
       <!-- Coordinator Profile -->
       <div class="coordinator">
         <profilcard
-          :image="aku"
+          :image="cipa"
           name="Cipa"
           title="Software Engineer"
           position="Coordinator"
@@ -23,7 +23,7 @@
       <!-- Staff Profiles -->
       <div class="staff">
         <profilcard
-          :image="aku"
+          :image="haikal"
           name="Haiqal"
           title="Software Engineer"
           position="Staff"
@@ -33,7 +33,7 @@
           }"
         />
         <profilcard
-          :image="aku"
+          :image="yona"
           name="Yona"
           title="Software Engineer"
           position="Staff"
@@ -49,7 +49,9 @@
 
 <script setup>
 import profilcard from '@/assets/accessory/profilcard.vue';
-import aku from '@/assets/image/profil.jpg';
+import cipa from '@/assets/image/profilkeren/cipa.png';
+import haikal from '@/assets/image/profilkeren/haikal.png';
+import yona from '@/assets/image/profilkeren/yona.png';
 </script>
 
 <style scoped>
