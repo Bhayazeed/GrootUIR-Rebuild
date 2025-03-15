@@ -175,9 +175,7 @@ onMounted(() => {
   }
 
   .left {
-    padding-right: 0;
     margin-bottom: 20px;
-    max-width: 100%;
   }
 
   .right {

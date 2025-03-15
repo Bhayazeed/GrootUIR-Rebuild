@@ -186,9 +186,9 @@ function onButtonClick() {
 /* Responsiveness for smaller screens (mobile) */
 @media (max-width: 768px) {
   .card {
-    width: 100%; /* Make the card take up the full width on smaller screens */
+    width: 330px; /* Make the card take up the full width on smaller screens */
     height: auto; /* Adjust height automatically to fit content */
-    margin: 10px; /* Reduce margins for smaller screens */
+    right: 25px;
   }
 
   .card-header {

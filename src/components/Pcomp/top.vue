@@ -156,6 +156,7 @@ onMounted(() => {
     flex-direction: column;
     gap: 15px;
     width: 100%;
+    padding-inline: 20px;
   }
 
   .right {

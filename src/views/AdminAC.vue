@@ -15,9 +15,8 @@
     display: flex;
     flex-direction: row;
     gap: 1rem; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 3rem;
     box-sizing: border-box;
   }
   </style>

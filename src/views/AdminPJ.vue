@@ -14,11 +14,11 @@
   .container {
     display: flex;
     flex-direction: row;
-    gap: 5rem; 
+    gap: 2rem;
     justify-content: space-between; 
-    align-items: center; 
-    padding: 1rem;
+    align-items: flex-start; 
     box-sizing: border-box;
+    margin-top: 50px;
   }
   </style>
   

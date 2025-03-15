@@ -175,6 +175,7 @@
 
     .image-content {
       max-width: 100%;
+      
     }
 
     .description {
@@ -192,6 +193,10 @@
 
     .motivational-words {
       font-size: 16px;
+    }
+
+    .motivational-words-section {
+    margin-inline: 20px;
     }
   }
 </style>

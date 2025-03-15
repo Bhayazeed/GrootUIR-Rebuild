@@ -4,7 +4,7 @@
     <div class="news-container">
       <h2 class="section-title">What's News</h2>
       <div class="news-items">
-        <div class="news-item" v-for="(news, index) in newsArticles" :key="index">
+        <div class="news-item" v-for="(news, index) in newPosts" :key="index">
           <div class="news-image">
             <img :src="news.image" alt="news image" class="news-img" />
           </div>
@@ -15,52 +15,52 @@
         </div>
       </div>
       <div class="bot-buttom">
-      <ReadMore buttonText="Click here" arrow="↓" :customAction="navigateToPage"/>
-    </div>
+        <ReadMore text="Click here" arrow="↓" :customAction="navigateToPage" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import image1 from '../../assets/image/IMG-20231019-WA0004.jpg'
-import image2 from '../../assets/image/IMG-20230816-WA0032.jpg'
-import image3 from '../../assets/image/IMG-20240521-WA0034.jpg'
-import image4 from '../../assets/image/galery4.jpg'
-import ReadMore from '../../assets/accessory/btnread.vue';
-
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import ReadMore from "../../assets/accessory/btnread.vue";
 
 const router = useRouter();
 
-// Define the custom action to navigate to another page
+// Navigasi ke halaman aktivitas
 function navigateToPage() {
-  router.push({ name: "Activity" }); // Replace 'TargetPage' with your route name or path
+  router.push({ name: "Activity" });
 }
 
-const images = [
-image1,
-image2,
-image3,
-image4
-];
-const newsArticles = [
-{
-  title: "Robotics Research Breakthrough",
-  description: "A new breakthrough in robotics research has been made by the GROOT community at UIR, focusing on automation and wireless technology.",
-  image: image1 // Replace with your image path
-},
-{
-  title: "AI in Robotics: The Future",
-  description: "AI is transforming the world of robotics. Learn how GROOT is integrating AI to enhance robotic automation systems.",
-  image: image3 // Replace with your image path
-},
-{
-  title: "GROOT Community Expands",
-  description: "The GROOT community at UIR is expanding its outreach to other universities and research groups, collaborating on cutting-edge robotics projects.",
-  image: image2 // Replace with your image path
+// Menyimpan data dari API
+const newPosts = ref([]);
+
+// Fetch data dari API
+async function fetchActivities() {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/activities`, {
+      method: "GET",
+      headers: {
+        "x-api-key": `${import.meta.env.VITE_API_KEY}`,
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+
+    if (result.success && result.data?.data) {
+      newPosts.value = result.data.data.slice(0, 3);
+    }
+  } catch (err) {
+    console.error("Error fetching activities:", err);
+  }
 }
-];
+
+// Panggil API saat komponen dimuat
+onMounted(fetchActivities);
 </script>
+
 
 <style scoped>
 /* News Section */
@@ -154,7 +154,7 @@ line-height: 1.5;
 
 .section-title {
   font-size: 24px; /* Slightly smaller title on mobile */
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .news-headline {
