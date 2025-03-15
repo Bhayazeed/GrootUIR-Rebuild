@@ -23,7 +23,6 @@ import defaultImage from "../assets/image/galery1.jpg";
 
 const route = useRoute();
 const id = route.params.id;
-console.log("ID yang digunakan:", id);
 
 
 onMounted(() => {
@@ -88,9 +87,11 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Membuat konten selalu berada di tengah secara vertikal */
+  min-height: 100vh; /* Menyesuaikan dengan tinggi konten */
   padding: 1rem;
   box-sizing: border-box;
+  margin-top: 50px;
+  flex-direction: column; /* Pastikan konten ditampilkan secara vertikal */
 }
 
 /* Loading dan error message */

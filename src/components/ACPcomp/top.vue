@@ -174,17 +174,9 @@ onMounted(() => {
     align-items: center;
   }
 
-  .left {
-    margin-bottom: 20px;
-  }
-
   .right {
     align-items: center;
     width: 100%;
-  }
-
-  .searchbar-container {
-    margin-bottom: 20px;
   }
 
   .maincard-class {

@@ -177,8 +177,9 @@ html, body {
   }
   .custom-button {
     font-size: 14px;
-    padding: 8px 14px;
-    margin-top: 10px;
+  }
+  .card-item:first-child {
+    display: none;
   }
 }
 
@@ -198,6 +199,9 @@ html, body {
     padding: 6px 12px;
     font-size: 12px;
     margin-top: 8px;
+  }
+  .card-item:first-child {
+    display: none;
   }
 }
 

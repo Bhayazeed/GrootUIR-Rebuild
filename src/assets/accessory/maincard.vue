@@ -20,7 +20,7 @@
         <h2 class="card-title">{{ title }}</h2>
       </slot>
       <slot name="description">
-        <p class="card-description">{{ description }}...</p>
+        <p class="card-description">{{ truncateText(description, 150) }}</p>
       </slot>
     </div>
 
@@ -37,50 +37,30 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { defineProps, defineEmits } from "vue";
+import { defineProps } from "vue";
+
 const router = useRouter();
 
 const props = defineProps({
-  image: {
-    type: String,
-    default: "", 
-  },
-  day: {
-    type: String,
-    default: "01", 
-  },
-  month: {
-    type: String,
-    default: "Jan", 
-  },
-  title: {
-    type: String,
-    default: "Default Title", 
-  },
-  description: {
-    type: String,
-    default: "Default description goes here.", 
-  },
-  buttonText: {
-    type: String,
-    default: "", 
-  },
-  customClass: {
-    type: String,
-    default: "", 
-  },
-  showDateBadge: {
-    type: Boolean,
-    default: true, 
-  },
-  id_activity: {
-    type: [String, Number],
-    required: true,  // Add id_activity prop here
-  }
+  image: { type: String, default: "" },
+  day: { type: String, default: "01" },
+  month: { type: String, default: "Jan" },
+  title: { type: String, default: "Default Title" },
+  description: { type: String, default: "Default description goes here." },
+  buttonText: { type: String, default: "" },
+  customClass: { type: String, default: "" },
+  showDateBadge: { type: Boolean, default: true },
+  id_activity: { type: [String, Number], required: true }
 });
 
+// Fungsi untuk memotong teks deskripsi
+const truncateText = (text, maxLength) => {
+  if (!text) return ""; // Pastikan tidak error jika deskripsi kosong
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+};
+
 function onButtonClick() {
-  router.push({ name: 'View', params: { id: props.id_activity } });
+  router.push({ name: "View", params: { id: props.id_activity } });
 }
 </script>
 
@@ -90,7 +70,7 @@ function onButtonClick() {
 /* Card Container */
 .card {
   width: 720px;
-  height: 520px;
+  height: auto;
   border-radius: 16px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -154,7 +134,6 @@ function onButtonClick() {
   color: #666666;
   margin: 0;
   line-height: 1.5;
-  max-height: 60px; /* Adjust this value to show less text */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -176,6 +155,7 @@ function onButtonClick() {
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  margin-bottom: 30px;
 }
 
 .read-more-btn:hover {

@@ -74,7 +74,8 @@ defineProps({
 /* Card Container */
 .card {
   width: 100%;
-  max-width: 720px;
+  max-width: 800px;
+  height: auto;
   border-radius: 16px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   overflow: hidden;

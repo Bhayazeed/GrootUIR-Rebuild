@@ -10,7 +10,7 @@
           </div>
           <div class="news-content">
             <h3 class="news-headline">{{ news.title }}</h3>
-            <p class="news-description">{{ news.description }}</p>
+            <p class="news-description">{{ truncateText(news.description, 100) }}</p>
           </div>
         </div>
       </div>
@@ -27,16 +27,18 @@ import { useRouter } from "vue-router";
 import ReadMore from "../../assets/accessory/btnread.vue";
 
 const router = useRouter();
+const newPosts = ref([]);
 
-// Navigasi ke halaman aktivitas
 function navigateToPage() {
   router.push({ name: "Activity" });
 }
 
-// Menyimpan data dari API
-const newPosts = ref([]);
+// Fungsi untuk memotong teks deskripsi
+const truncateText = (text, maxLength) => {
+  if (!text) return ""; // Pastikan tidak terjadi error jika deskripsi kosong/null
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+};
 
-// Fetch data dari API
 async function fetchActivities() {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/activities`, {
@@ -57,7 +59,6 @@ async function fetchActivities() {
   }
 }
 
-// Panggil API saat komponen dimuat
 onMounted(fetchActivities);
 </script>
 
