@@ -54,9 +54,16 @@ const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (!file) return;
 
-  const validExtensions = ["image/jpeg", "image/png", "image/jpg"];
+  const validExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+  const maxSize = 500 * 1024; // 500KB dalam bytes
+
   if (!validExtensions.includes(file.type)) {
-    alert("Hanya gambar dengan format JPEG, JPG, atau PNG yang diperbolehkan.");
+    alert('Hanya gambar dengan format JPEG, JPG, atau PNG yang diperbolehkan.');
+    return;
+  }
+
+  if (file.size > maxSize) {
+    alert('Ukuran file terlalu besar! Maksimum 500KB.');
     return;
   }
 
