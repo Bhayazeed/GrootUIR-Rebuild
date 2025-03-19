@@ -12,8 +12,8 @@
       <!-- Coordinator Profile -->
       <div class="advisor">
         <profilcard
-          :image="aku"
-          name="Evizal"
+          :image="Evizal"
+          name="Dr EVIZAL, ST., M.Eng"
           title="Software Engineer"
           position="advisor"
           :socialLinks="{
@@ -32,7 +32,7 @@
 
 <script setup>
 import profilcard from '@/assets/accessory/profilcard.vue';
-import aku from '@/assets/image/profilkeren/fadhlur.png';
+import Evizal from '@/assets/image/profilkeren/evizal.png';
 </script>
 
 <style scoped>

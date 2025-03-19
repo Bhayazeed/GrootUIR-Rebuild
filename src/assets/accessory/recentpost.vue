@@ -56,6 +56,7 @@ const savePostUrl = (url) => {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  text-align: left  ;
 }
 
 .recent-post-title {

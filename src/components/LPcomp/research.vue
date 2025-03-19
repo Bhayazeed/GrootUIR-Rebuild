@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import house from "../../assets/accessory/house.svg"
 
 </script>
 

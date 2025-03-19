@@ -115,6 +115,7 @@ onMounted(() => {
   flex-wrap: wrap;
   gap: 20px;
   min-width: 500px;
+  padding-left: 15vh;
 }
 
 .right {
@@ -125,7 +126,9 @@ onMounted(() => {
 }
 
 .tag-container {
+  margin-right: 5em;
   width: 100%;
+  padding-right: 15vh;
 }
 
 /* Responsif untuk tablet */

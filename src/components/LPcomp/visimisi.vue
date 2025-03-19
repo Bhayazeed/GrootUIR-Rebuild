@@ -15,7 +15,7 @@
                 To provide education and training in robotics and automation, foster innovation through cutting-edge research, participate in competitions, empower the academic community, and collaborate with partners to deliver impactful advancements that benefit society and the economy.
               </p>
               <div class="kotakdivgambar">
-                <img src="../../assets/accessory/house.svg" alt="" class="kotak-timpa">
+                <img src="../../assets/accessory/svg/house.svg" alt="" class="kotak-timpa">
               </div>
             </div>
             
@@ -30,7 +30,7 @@
                 <li>Contribute to societal progress through robotics and automation advancements.</li>
               </ul>
               <div class="kotakdivgambar">
-                <img src="../../assets/accessory/Hand.svg" alt="" class="kotak-timpa-tangan">
+                <img src="../../assets/accessory/svg/Hand.svg" alt="" class="kotak-timpa-tangan">
               </div>
             </div>
           </div>
