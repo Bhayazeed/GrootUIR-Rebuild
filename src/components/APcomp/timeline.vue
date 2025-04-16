@@ -19,13 +19,13 @@
           <!-- Image Section -->
           <div class="content-image">
             <p class="content-date">November 24, 2018</p>
-            <img src="@/assets/image/galery1.jpg" alt="Robotic Automation" />
+            <img src="@/assets/image/pertama.jpg" alt="Robotic Automation" />
           </div>
           <!-- Description Section -->
           <div class="content-description">
             <h3 class="content-title">Robotic Automation and Wireless Research Created</h3>
             <p class="content-text">
-              Robotic Automation and Wireless Research is a laboratory facilitated by the Universitas Islam Riau (UIR). This laboratory was built to assist researchers in the field of technology and take part in technological competitions.
+              Robotic Automation and Wireless Research Laboratory is a research unit under the auspices of Universitas Islam Riau (UIR). The laboratory was established at the initiative of Dr. Evizal, S.T., M.Eng., with Jerry Saputra as its first chairman.
             </p>
           </div>
         </div>
@@ -34,19 +34,19 @@
       <!-- Timeline Item: 2019 -->
       <div class="timeline-item">
         <!-- Year Label -->
-        <div class="year-label">2019</div>
+        <div class="year-label">2023</div>
         <div class="timeline-content">
           <!-- Description Section -->
           <div class="content-description">
-            <h3 class="content-title">GROOT Created</h3>
+            <h3 class="content-title">GROOT New Gen</h3>
             <p class="content-text">
-              The University of Islam Riau (UIR) entrusted the Department of Informatics Engineering with the management of this laboratory. In response, the department established the GROOT community.
+              This laboratory had experienced a period of operational vacuum due to the COVID-19 pandemic. However, in 2023, laboratory activities were revived through the initiation of a new generation led by Tu Bagus Dwi Fikri under the name GROOT.
             </p>
           </div>
           <!-- Image Section -->
           <div class="content-image">
-            <p class="content-date">May 18, 2019</p>
-            <img src="@/assets/image/galery2.jpg" alt="GROOT Creation" />
+            <p class="content-date">May 1, 2023</p>
+            <img src="@/assets/image/tu bagus.jpg" alt="GROOT Creation" />
           </div>
         </div>
       </div>
@@ -54,18 +54,18 @@
       <!-- Timeline Item: 2020 -->
       <div class="timeline-item">
         <!-- Year Label -->
-        <div class="year-label">2020</div>
+        <div class="year-label">2024</div>
         <div class="timeline-content">
           <!-- Image Section -->
           <div class="content-image">
-            <p class="content-date">March 14, 2020</p>
-            <img src="@/assets/image/galery3.jpg" alt="Research Collaboration" />
+            <p class="content-date">May 6, 2024</p>
+            <img src="@/assets/image/fadhlur.jpg" alt="Research Collaboration" />
           </div>
           <!-- Description Section -->
           <div class="content-description">
-            <h3 class="content-title">Expanded Research Collaborations</h3>
+            <h3 class="content-title">New Spirit of GROOT</h3>
             <p class="content-text">
-              GROOT expanded its collaborations with international research institutions, fostering innovation and sharing knowledge to solve global technological challenges.
+              Today, the leadership of the laboratory has passed to Fadhlur Rohman, who continues the baton of leadership with renewed vigor. Under his direction, GROOT is committed to continue to grow, expand its contribution in the field of research and technological innovation, and build a reputation as a center of excellence in robotic and automation development within Riau Islamic University and in the wider arena.
             </p>
           </div>
         </div>

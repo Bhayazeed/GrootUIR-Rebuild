@@ -12,7 +12,7 @@
             <div class="vision-box">
               <h3 class="vision-title">Vision</h3>
               <p class="vision-text">
-                To provide education and training in robotics and automation, foster innovation through cutting-edge research, participate in competitions, empower the academic community, and collaborate with partners to deliver impactful advancements that benefit society and the economy.
+                Making GROOT UIR superior and leading in the development of science and technology in the field of robotics and automation.
               </p>
               <div class="kotakdivgambar">
                 <img src="../../assets/accessory/svg/house.svg" alt="" class="kotak-timpa">
@@ -25,9 +25,12 @@
             <div class="mission-box">
               <h3 class="mission-title">Mission</h3>
               <ul class="mission-list">
-                <li>Establish GROOT UIR as a leading institution in robotics and automation</li>
-                <li>Drive innovation and excellence in science and technology.</li>
-                <li>Contribute to societal progress through robotics and automation advancements.</li>
+                <li>Organizing training and education in the field of robotics and automation to apply knowledge to the younger generation.</li>
+                <li>Participate in competitions related to robotics and automation</li>
+                <li>Developing the latest technology</li>
+                <li>Empowering the academic community</li>
+                <li>Make research and service that produces innovations in the field of robotics and automation to the community that can improve welfare and the economy.</li>
+                <li>Organizing cooperation with other parties to develop science and technology in the field of robotics and automation</li>
               </ul>
               <div class="kotakdivgambar">
                 <img src="../../assets/accessory/svg/Hand.svg" alt="" class="kotak-timpa-tangan">

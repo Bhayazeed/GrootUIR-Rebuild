@@ -18,7 +18,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import extendcard from "../assets/accessory/extendcard.vue";
+import extendcard from "../assets/accessory/extendcardP.vue";
 import defaultImage from "../assets/image/galery1.jpg";
 
 const route = useRoute();

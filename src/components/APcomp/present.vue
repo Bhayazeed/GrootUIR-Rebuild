@@ -14,7 +14,7 @@
           </p>
         </div>
         <div class="image">
-          <img src="@/assets/image/galery1.jpg" alt="Image 1" class="image-content" />
+          <img src="@/assets/image/memory.jpg" alt="Image 1" class="image-content" />
         </div>
       </div>
     </div>
@@ -29,10 +29,53 @@
           </p>
         </div>
         <div class="image">
-          <img src="@/assets/image/galery2.jpg" alt="Image 2" class="image-content" />
+          <img src="@/assets/image/memory1.jpg" alt="Image 2" class="image-content" />
         </div>
       </div>
     </div>
+
+<!-- Section 3 -->
+<div class="image-description-section section-3">
+  <div class="image-description-item section-3-item">
+    <div class="description section-3-description">
+      <!-- Mengubah teks menjadi list dengan judul dan deskripsi -->
+      <ol class="description-list">
+        <li>
+          <strong>Gear (TEAMWORK)</strong>
+          <p class="list-description-text">
+            Gear is an important element in robotics technology used to channel movement. The gear cannot channel the movement too far unless there is a lot of gear involved in it. Gear on the GROOT logo means to develop a technology that must involve many creative people in their respective fields.
+          </p>
+        </li>
+        <li>
+          <strong>Combination Orange with Yellow (OPTIMISTIC AND CAREFUL)</strong>
+          <p class="list-description-text">
+            The combination of orange and yellow. Psychologically, the meaning of orange gives the impression of warmth and enthusiasm and is a symbol of adventure. While the color yellow leads to mental clarity. A very beautiful color combination that both gives a strong and warm effect. This combination of the GROOT logo means taking a small chance of success in developing a technology with clear and calculated considerations.
+          </p>
+        </li>
+        <li>
+          <strong>Blue (PRODUCTIVE)
+          </strong>
+          <p class="list-description-text">
+            Blue is a universal color that is often chosen, perhaps because of its versatile quality, broad meaning and soothing. Many companies use blue because they are considered productive colors. The blue color on the GROOT logo means that people are creative and productive in developing technology.
+          </p>
+        </li>
+        <li>
+          <strong>6 eye gear 
+          </strong>
+          <p class="list-description-text">
+            (MISSION GROOT)
+          </p>
+        </li>
+      </ol>
+    </div>
+    <div class="image section-3-image">
+      <img src="@/assets/image/ourlogo1.jpg" alt="Image 3" class="image-logo" />
+      <img src="@/assets/image/ourlogo.jpg" alt="Image 3" class="image-logo" />
+    </div>
+  </div>
+</div>
+
+
   
     <!-- Footer Section -->
     <div class="footer-logo-container">
@@ -107,6 +150,19 @@
     max-height: 300px; /* Set a maximum height for larger screens */
   }
 
+  .image-logo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensures image fills container without distortion */
+    border-radius: 20px;
+    max-height: 300px; /* Set a maximum height for larger screens */
+    flex-direction: column;
+  }
+
   .description {
     flex: 2;
     padding: 20px;
@@ -157,6 +213,68 @@
     font-weight: normal;
   }
 
+ /* === Section 3 === */
+.section-3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.section-3-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-direction: row-reverse; /* Gambar di sebelah kanan */
+  width: 100%;
+}
+
+.section-3-description {
+  flex: 2;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.description-list {
+  font-size: 1rem;
+  color: #33308e;
+  line-height: 1.6;
+  text-align: left;
+  list-style-type: decimal; /* Menambahkan nomor pada list */
+  margin-left: 20px; /* Memberikan sedikit ruang di kiri list */
+}
+
+.list-description-text {
+  font-size: 1rem;
+  color: #33308e;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.section-3-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Gambar di atas */
+  gap: 10px; /* Jarak antara gambar */
+}
+
+.section-3-image .image-content {
+  border-radius: 20px;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+
+
   /* === Responsive Design === */
   @media (max-width: 768px) {
     .slogan {
@@ -198,5 +316,6 @@
     .motivational-words-section {
     margin-inline: 20px;
     }
+    
   }
 </style>
