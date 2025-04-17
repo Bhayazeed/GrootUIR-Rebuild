@@ -37,6 +37,12 @@
 <!-- Section 3 -->
 <div class="image-description-section section-3">
   <div class="image-description-item section-3-item">
+  
+    <div class="image section-3-image">
+      <img src="@/assets/image/ourlogo1.jpg" alt="Image 3" class="image-logo" />
+      <img src="@/assets/image/ourlogo.jpg" alt="Image 3" class="image-logo" />
+    </div>
+
     <div class="description section-3-description">
       <!-- Mengubah teks menjadi list dengan judul dan deskripsi -->
       <ol class="description-list">
@@ -67,10 +73,6 @@
           </p>
         </li>
       </ol>
-    </div>
-    <div class="image section-3-image">
-      <img src="@/assets/image/ourlogo1.jpg" alt="Image 3" class="image-logo" />
-      <img src="@/assets/image/ourlogo.jpg" alt="Image 3" class="image-logo" />
     </div>
   </div>
 </div>
@@ -229,7 +231,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  flex-direction: row-reverse; /* Gambar di sebelah kanan */
+  flex-direction: row; /* Gambar di sebelah kanan */
   width: 100%;
 }
 
@@ -254,6 +256,7 @@
   color: #33308e;
   line-height: 1.6;
   margin-top: 10px;
+  text-align: justify; /* Rata kiri-kanan */
 }
 
 .section-3-image {
@@ -316,6 +319,16 @@
     .motivational-words-section {
     margin-inline: 20px;
     }
-    
+    .image-logo {
+      max-width: 250px;
+      max-height: 250px; /* Set a maximum height for larger screens */
+    }
+    .section-3-item {
+      margin-right: 45px;
+    }
+    .section-3-image {
+      margin-left: 35px;
+      margin-bottom: 25px;
+    }
   }
 </style>

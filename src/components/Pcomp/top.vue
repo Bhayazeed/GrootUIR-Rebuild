@@ -5,13 +5,13 @@
   <div class="page-container">
     <div class="project-container">
       <Projectcard
-        v-for="(project) in filteredProjects"
+        v-for="project in filteredProjects"
         :key="project.id_project"
         :image="project.image"
         :title="project.title"
         :description="project.description"
-        :fullDescription="project.fullDescription"
         :tag="project.tag"
+        @button-click="() => handleButtonClick(project.id_project)"
       />
     </div>
     <div class="right">
@@ -26,25 +26,28 @@
 import { ref, computed, onMounted } from "vue";
 import Projectcard from "../../assets/accessory/projectcard.vue";
 import Tag from "../../assets/accessory/tags.vue";
+import { useRouter } from "vue-router";
 
 const tagTitle = ["ROBOTICS", "IOT", "AI", "AUTOMATION"];
 const projects = ref([]);
 const selectedTag = ref(null);
-const loading = ref(true);
 const error = ref(null);
+const loading = ref(true);
+const router = useRouter();
 
-// Filter projects berdasarkan tag
 const filteredProjects = computed(() => {
   if (!selectedTag.value) return projects.value;
-  return projects.value.filter((project) => project.tag === selectedTag.value);
+  return projects.value.filter(project => project.tag === selectedTag.value);
 });
 
-// Method untuk mengatur tag yang dipilih
 const filterProjects = (tag) => {
   selectedTag.value = tag;
 };
 
-// Fetch data dari API
+function handleButtonClick(id_project) {
+  router.push({ name: "View", params: { id: id_project, type: "projects" } });
+}
+
 const fetchProject = async () => {
   try {
     const apiUrl = `${import.meta.env.VITE_API_URL}/projects`;
@@ -52,25 +55,20 @@ const fetchProject = async () => {
       method: "GET",
       headers: {
         "x-api-key": `${import.meta.env.VITE_API_KEY}`,
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
     const result = await response.json();
-
     if (result.success && result.data && result.data.data) {
-      // Map data API ke struktur yang sesuai
       projects.value = result.data.data.map((item) => ({
-        id: item.id_project,
+        id_project: item.id_project,
         title: item.title,
         image: item.image,
         description: item.description,
-        fullDescription: item.description, // Gunakan deskripsi sebagai default
         tag: item.tags,
       }));
     } else {
@@ -78,13 +76,12 @@ const fetchProject = async () => {
     }
   } catch (err) {
     error.value = `Gagal mengambil data: ${err.message}`;
-    console.error("Error fetching projects:", err);
+    console.error(err);
   } finally {
     loading.value = false;
   }
 };
 
-// Panggil fetchProject saat komponen dimuat
 onMounted(() => {
   fetchProject();
 });
@@ -129,6 +126,21 @@ onMounted(() => {
   margin-right: 5em;
   width: 100%;
   padding-right: 15vh;
+}
+
+.custom-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #33308e;
+  background-color: transparent;
+  border: 1px solid #f9a61d;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: block;
+  margin-top: 10px;
+  width: fit-content;
 }
 
 /* Responsif untuk tablet */

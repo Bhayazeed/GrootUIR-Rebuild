@@ -15,19 +15,19 @@
 
         <div class="form-group">
           <label>Deskripsi</label>
-          <input type="text" v-model="formData.description" placeholder="Masukkan deskripsi..." />
+          <textarea
+            v-model="formData.description"
+            placeholder="Masukkan deskripsi..."
+            class="scrollable-textarea"
+            rows="4"
+          ></textarea>
         </div>
 
         <div class="form-group">
           <label>Category</label>
           <input type="text" v-model="formData.category" placeholder="Masukkan kategori..." />
         </div>
-
-        <div class="form-group">
-          <label>Pembuat</label>
-          <input type="text" v-model="formData.created_by" placeholder="Masukkan pembuat..." />
-        </div>
-
+        
         <button type="submit" :disabled="isSubmitting">
           {{ isSubmitting ? "Mengirim..." : "📝 Simpan" }}
         </button>
@@ -219,4 +219,38 @@ button:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
+
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #33308e;
+  border-radius: 5px;
+  outline: none;
+  resize: vertical;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+textarea:focus {
+  border-color: #f9a61d;
+}
+
+.scrollable-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #33308e;
+  border-radius: 5px;
+  outline: none;
+  resize: both; /* biar bisa diubah manual */
+  overflow: auto;
+  white-space: pre; /* penting: agar spasi, enter, dan horizontal scroll tetap terlihat */
+  font-family: inherit;
+  font-size: 1rem;
+}
+.scrollable-textarea:focus {
+  border-color: #f9a61d;
+}
+
 </style>

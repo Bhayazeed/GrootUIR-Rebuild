@@ -5,49 +5,37 @@
     </div>
     <div class="project-details">
       <h3 class="project-title">{{ title }}</h3>
-      <p class="project-description">
-        {{ isExpanded ? fullDescription : description }}
-      </p>
-      <button class="read-more-button" @click="toggleExpand">
-        {{ isExpanded ? "Show Less" : "Read More" }}
+      <p class="project-description">{{ truncatedDescription }}</p>
+      <button class="read-more-button" @click="onButtonClick">
+        Read More
       </button>
-      <!-- Display the tag if it's provided -->
       <div v-if="tag" class="project-tag">{{ tag }}</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { defineProps } from "vue";
+import { computed } from "vue";
+import { defineProps, defineEmits } from "vue";
 
-defineProps({
-  image: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  fullDescription: {
-    type: String,
-    required: true,
-  },
-  tag: {
-    type: String,
-    required: false, // Tag is optional
-  },
+const props = defineProps({
+  image: String,
+  title: String,
+  description: String,
+  tag: String,
 });
 
-const isExpanded = ref(false);
+const emit = defineEmits(["button-click"]);
 
-function toggleExpand() {
-  isExpanded.value = !isExpanded.value;
+const truncatedDescription = computed(() => {
+  const maxLength = 73;
+  return props.description.length > maxLength
+    ? props.description.slice(0, maxLength) + "..."
+    : props.description;
+});
+
+function onButtonClick() {
+  emit("button-click");
 }
 </script>
 

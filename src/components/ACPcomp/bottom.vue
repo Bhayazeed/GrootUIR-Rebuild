@@ -57,7 +57,7 @@ function formatDate(dateStr) {
 
 
 function handleButtonClick(id_activity) {
-  router.push({ name: 'View', params: { id: id_activity } });
+  router.push({ name: 'View', params: { id: id_activity, type: 'activities' } });
 }
 
 // Fungsi untuk mengambil data aktivitas dari API

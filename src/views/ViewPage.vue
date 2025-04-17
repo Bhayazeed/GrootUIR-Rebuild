@@ -4,13 +4,13 @@
     <div v-else-if="error" class="error-message">{{ error }}</div>
     <extendcard
       v-else
-      :title="activity.title"
-      :description="activity.description"
-      :creator="activity.created_by"
+      :title="dataDetail.title"
+      :description="dataDetail.description"
+      :creator="isProject ? dataDetail.created_by : null"
       :date="formattedDate"
       customClass=""
       headerColor="#1e3a8a"
-      :image="activity.image || defaultImage"
+      :image="dataDetail.image || defaultImage"
     />
   </div>
 </template>
@@ -18,24 +18,22 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import extendcard from "../assets/accessory/extendcardP.vue";
+import extendcard from "../assets/accessory/extendcard.vue";
 import defaultImage from "../assets/image/galery1.jpg";
 
 const route = useRoute();
 const id = route.params.id;
+const type = route.params.type; // 'projects' atau 'activities'
 
+const isProject = computed(() => type === 'projects');
 
-onMounted(() => {
-  fetchActivity();
-});
-
-const activity = ref({});
+const dataDetail = ref({});
 const loading = ref(true);
 const error = ref("");
 
 const formattedDate = computed(() => {
-  if (activity.value.created_at) {
-    const date = new Date(activity.value.created_at);
+  if (dataDetail.value.created_at) {
+    const date = new Date(dataDetail.value.created_at);
     return date.toLocaleDateString("id-ID", {
       year: "numeric",
       month: "short",
@@ -45,10 +43,9 @@ const formattedDate = computed(() => {
   return "";
 });
 
-const fetchActivity = async () => {
+const fetchData = async () => {
   try {
-    const apiUrl = `${import.meta.env.VITE_API_URL}/activities/${id}`;
-
+    const apiUrl = `${import.meta.env.VITE_API_URL}/${type}/${id}`;
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
@@ -64,22 +61,23 @@ const fetchActivity = async () => {
 
     const result = await response.json();
     if (result.success && result.data) {
-      activity.value = result.data;
+      dataDetail.value = result.data;
     } else {
-      throw new Error(result.message || "Gagal mengambil data aktivitas");
+      throw new Error(result.message || "Gagal mengambil data");
     }
   } catch (err) {
     error.value = `Gagal mengambil data: ${err.message}`;
-    console.error("Error fetching activity:", err);
+    console.error("Error fetching data:", err);
   } finally {
     loading.value = false;
   }
 };
 
 onMounted(() => {
-  fetchActivity();
+  fetchData();
 });
 </script>
+
 
 <style scoped>
 /* Container utama */

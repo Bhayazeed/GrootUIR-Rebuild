@@ -13,11 +13,13 @@
       <slot name="title">
         <h2 class="card-title">{{ title }}</h2>
       </slot>
+
       <div class="card-meta">
         <slot name="creator">
-          <p class="card-creator">By {{ creator }}</p>
+          <p v-if="creator" class="card-creator"> By {{ creator }}</p>
+          <div v-if="creator" class="divider"></div>
         </slot>
-        <div class="divider"></div>
+
         <slot name="date">
           <div class="card-date">
             <i class="fa-solid fa-calendar-days"></i>
@@ -25,16 +27,24 @@
           </div>
         </slot>
       </div>
+
       <slot name="description">
-        <p class="card-description">{{ description }}</p>
+        <div class="card-description">
+          <p v-for="(paragraph, index) in formattedDescription" :key="index">
+            {{ paragraph }}
+          </p>
+        </div>
       </slot>
+      
+      <!-- Related Articles Section -->
     </div>
-    <button @click="goBack">Back</button>
+    
+    <button class="back-button" @click="goBack">Kembali</button>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, computed } from "vue";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -42,7 +52,7 @@ const goBack = () => {
   router.back();
 };
 
-defineProps({
+const props = defineProps({
   image: {
     type: String,
     default: "", // Default image (empty string)
@@ -53,7 +63,7 @@ defineProps({
   },
   creator: {
     type: String,
-    default: "Unknown Creator", // Default creator
+    default: "", // Default creator
   },
   date: {
     type: String,
@@ -67,6 +77,12 @@ defineProps({
     type: String,
     default: "", // Custom class for styling
   },
+});
+
+// Format description into paragraphs
+const formattedDescription = computed(() => {
+  if (!props.description) return [];
+  return props.description.split(/\r\n\r\n/).filter(p => p.trim() !== '');
 });
 </script>
 
@@ -97,7 +113,7 @@ defineProps({
 
 /* Card Content */
 .card-content {
-  padding: 20px 16px;
+  padding: 20px 40px;
   text-align: left;
   flex-grow: 1;
 }
@@ -143,10 +159,14 @@ defineProps({
 
 .card-description {
   font-size: 1rem;
-  color: #666666;
   margin: 0;
   line-height: 1.5;
   word-wrap: break-word;
+  text-align: justify;
+}
+
+.card-description >>> p {
+  color: #1a1a1a;
 }
 
 /* Responsiveness */
@@ -160,8 +180,9 @@ defineProps({
   }
 
   .card-meta {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row; /* Tetap row */
+    align-items: center; /* Agar sejajar */
+    flex-wrap: wrap;     /* Jika space tidak cukup, otomatis turun */
   }
 
   .card-date p,
@@ -169,9 +190,10 @@ defineProps({
     font-size: 0.85rem;
   }
 
-  .card-description {
-    font-size: 0.95rem;
+  .card-description >>> p {
+    font-size: 12px;
   }
+  
 }
 
 @media (max-width: 480px) {

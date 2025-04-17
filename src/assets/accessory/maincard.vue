@@ -60,7 +60,7 @@ const truncateText = (text, maxLength) => {
 };
 
 function onButtonClick() {
-  router.push({ name: "View", params: { id: props.id_activity } });
+  router.push({ name: "View", params: { id: props.id_activity, type: "activities" } });
 }
 </script>
 
