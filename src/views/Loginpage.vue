@@ -67,6 +67,8 @@ const handleLogin = async () => {
     if (result.success) {
       localStorage.setItem("authToken", result.token);
       loginError.value = "";
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('role', 'admin'); // atau 'user'
       router.push({ name: "AdminAC" });
     } else {
       loginError.value = result.message || "Invalid email or password.";

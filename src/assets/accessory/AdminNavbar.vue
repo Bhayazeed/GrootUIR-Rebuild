@@ -55,6 +55,8 @@ const handleMouseMove = (event) => {
 // Fungsi logout
 const handleLogout = () => {
   localStorage.removeItem("authToken");
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('role');
   router.push({ name: 'LandingPage'});
 };
 
